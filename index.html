@@ -242,10 +242,11 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 .timeline-line{width:1px;background:var(--bd);flex-shrink:0;margin-left:4px}
 
 @media print{
+  @page{margin:1cm;size:letter}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  nav,.no-print,.page{display:none!important}
+  nav,.no-print,.page,.fab,.cpanel,.moverlay,.login-overlay,.toast{display:none!important}
   #pg-hoja{display:block!important;padding:0;max-width:100%}
-  #hoja-out .hoja{border:none;box-shadow:none;padding:1rem}
+  #hoja-out .hoja{border:none;box-shadow:none;padding:0}
 }
 </style>
 </head>
@@ -269,11 +270,7 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
   <!-- PARQUE -->
   <button class="ntab on" id="nt-sol">
     <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-    Nueva solicitud
-  </button>
-  <button class="ntab" id="nt-mat">
-    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-    Catálogo
+    Solicitar material
     <span class="cbadge" id="cb" style="display:none">0</span>
   </button>
   <button class="ntab" id="nt-misol">
@@ -299,7 +296,7 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 
 <!-- ═══ NUEVA SOLICITUD ═══ -->
 <div id="pg-solicitud" class="page on">
-  <div class="ph"><h1>Nueva solicitud</h1><p>Agrega los artículos que necesitas. También puedes agregarlos desde el <strong>Catálogo</strong>.</p></div>
+  <div class="ph"><h1>Solicitar material</h1><p>Agrega los artículos que necesitas. También puedes buscarlos en <strong>Ver catálogo</strong> y agregarlos desde ahí.</p></div>
 
   <div id="editing-banner" style="display:none;background:#fef9c3;border:1px solid #fde047;border-radius:var(--rsm);padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;color:#854d0e;align-items:center;gap:8px">
     <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -404,16 +401,13 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 </div>
 
 <!-- ═══ CATÁLOGO ═══ -->
-<div id="pg-materiales" class="page">
-  <div class="ph"><h1>Catálogo de materiales</h1><p>Busca el artículo y agrégalo directamente a tu solicitud.</p></div>
-  <div class="zone-pills" id="zpills"></div>
-  <div class="mat-grid" id="mgrid"></div>
-  <div class="fab" id="fab">
-    <button class="btn bp" onclick="toggleCpanel()" style="border-radius:30px;box-shadow:0 4px 20px rgba(238,71,35,.35);padding:12px 20px">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-      Ver solicitud · <span id="fab-n">0</span>
-    </button>
-  </div>
+
+<!-- FAB global -->
+<div class="fab" id="fab">
+  <button class="btn bp" id="fab-btn" style="border-radius:30px;box-shadow:0 4px 20px rgba(238,71,35,.35);padding:12px 20px">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+    Ver solicitud · <span id="fab-n">0</span>
+  </button>
 </div>
 
 <!-- CARRITO LATERAL -->
@@ -576,7 +570,7 @@ let panelMatFilter={};
 // Cuando tengas el Apps Script desplegado, pega aquí
 // la URL del Web App (termina en /exec)
 // ══════════════════════════════════════════════════
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwwzAfc10FaYDLAVz5_Zsr11uy_YAe7FiBEbC6sLvqjj6KGrsm97ZdCG0xJ6vUgzox3/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz0JIkIhTGKBqoudkVPm7oMtoo3g-eCwrDrezOdQNdCU5EzJJnful3llyOAuWFU04RW/exec';
 
 // Guarda en localStorage siempre, y sincroniza a Sheets si hay URL
 function save(sol){
@@ -627,7 +621,6 @@ function goPage(id,btn){
   document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
   document.getElementById('pg-'+id).classList.add('on');
   if(btn) btn.classList.add('on');
-  if(id==='materiales') initMateriales();
   if(id==='panel'){activeEst='';activeMes='';renderPanel();}
   if(id==='hoja') fillHojaSel();
   if(id==='misol') renderMiSol();
@@ -727,12 +720,36 @@ function addItem(){
   if(!zona){toast('Selecciona una zona');return;}
   if(!artId){toast('Selecciona un artículo');return;}
   const art=CAT.find(a=>a.id===parseInt(artId));
-  cart.push({artId:art.id,nombre:art.nombre,zona,mat,med:medidas||art.med,qty,motivo,obs,tipo:'catalogo',imgData:art.img||'',checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
-  updateCartUI();renderSolPreview();renderCpList();
+
+  // Detectar duplicado
+  const dupIdx=cart.findIndex(c=>c.artId===art.id);
+  if(dupIdx>=0){
+    const dup=cart[dupIdx];
+    const opc=confirm(
+      `"${art.nombre}" ya está en tu solicitud (${dup.qty} pieza${dup.qty>1?'s':''}).\n\n`+
+      `OK → Sumar ${qty} más (quedarán ${dup.qty+qty})\n`+
+      `Cancelar → Agregarlo como artículo separado`
+    );
+    if(opc){
+      // Sumar cantidad
+      cart[dupIdx].qty+=qty;
+      updateCartUI();renderSolPreview();renderCpList();
+      toast(`Cantidad actualizada: ${cart[dupIdx].qty} piezas`);
+    } else {
+      // Agregar como nuevo independiente
+      cart.push({artId:art.id,nombre:art.nombre,zona,mat,med:medidas||art.med,qty,motivo,obs,tipo:'catalogo',imgData:art.img||'',checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
+      updateCartUI();renderSolPreview();renderCpList();
+      toast('Artículo agregado como entrada separada ✓');
+    }
+  } else {
+    cart.push({artId:art.id,nombre:art.nombre,zona,mat,med:medidas||art.med,qty,motivo,obs,tipo:'catalogo',imgData:art.img||'',checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
+    updateCartUI();renderSolPreview();renderCpList();
+    toast('Artículo agregado ✓');
+  }
+
   document.getElementById('f-art').value='';document.getElementById('f-qty').value=1;
   document.getElementById('f-obs').value='';document.getElementById('f-medidas').value='';
   document.getElementById('f-mat').value='';document.getElementById('art-preview').style.display='none';
-  toast('Artículo agregado ✓');
 }
 
 function renderSolPreview(){
@@ -895,51 +912,125 @@ async function addNuevo(){
 }
 
 // ══════════ MI SOLICITUD ══════════
+let activeMisolMes='ultima';
+let expandedMiSol=new Set();
+
 function renderMiSol(){
+  const pills=document.getElementById('misol-mes-pills');
   const cont=document.getElementById('misol-content');
-  // ultima solicitud de este "usuario" = la más reciente
-  const sol=solicitudes.length?[...solicitudes].sort((a,b)=>new Date(b.fechaCreacion)-new Date(a.fechaCreacion))[0]:null;
-  if(!sol){
-    cont.innerHTML='<div class="empty"><strong>Sin solicitudes</strong><p>Aún no has enviado ninguna solicitud.</p></div>';return;
+
+  if(!solicitudes.length){
+    pills.innerHTML='';
+    cont.innerHTML='<div class="empty"><strong>Sin solicitudes</strong><p>Aún no has enviado ninguna solicitud.</p></div>';
+    return;
   }
-  const canEdit=sol.status==='recibida';
-  const sLabel={recibida:'Recibida — en espera de revisión',proceso:'En proceso — la diseñadora está trabajando en ello',enviada:'Enviada — el material está en camino',rechazada:'Rechazada — revisa la nota'};
-  const fc=fmtDate(sol.fechaCreacion);
-  const fm=fmtDate(sol.fechaModParque||sol.fechaCreacion);
-  cont.innerHTML=`
-    <div class="card" style="margin-bottom:1rem">
-      <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
-        <div>
-          <div style="font-size:15px;font-weight:600">${sol.folio}</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:2px"><span class="sp s-${sol.status}"><span class="dot"></span>${sLabel[sol.status]}</span></div>
-        </div>
-        ${canEdit?`<button class="btn bwarn bsm" onclick="editarSol('${sol.folio}')">✎ Editar solicitud</button>`:''}
-      </div>
-      <div style="padding:1rem 1.25rem;display:flex;gap:2rem;flex-wrap:wrap;font-size:12.5px">
-        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Enviada el</div>${fc}</div>
-        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Última modificación del parque</div><span style="${(sol.fechaModParque&&sol.fechaModParque!==sol.fechaCreacion)?'color:var(--o);font-weight:500':''}">${fm}</span></div>
-      </div>
-      ${sol.notaGlobal?`<div style="padding:.875rem 1.25rem;border-top:1px solid var(--bd);background:#fff7ed;font-size:13px;color:#92400e"><strong>Nota de diseñadora:</strong> ${sol.notaGlobal}</div>`:''}
-    </div>
-    <div style="font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.625rem">Artículos (${sol.items.length})</div>
-    <div class="card" style="padding:0">
-      ${sol.items.map(it=>`
-        <div class="item-row" style="padding:.875rem 1.25rem">
-          <div class="ithumb">${it.imgData?`<img src="${it.imgData}" alt="">`:'<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'}</div>
+
+  // Construir meses disponibles
+  const mesSet=new Set(solicitudes.map(s=>s.fechaCreacion.slice(0,7)));
+  const meses=[...mesSet].sort().reverse();
+
+  // Resetear si el mes activo ya no existe
+  if(activeMisolMes!=='ultima'&&!meses.includes(activeMisolMes)) activeMisolMes='ultima';
+
+  // Pills de navegación
+  pills.innerHTML='';
+  const addPill=(label,value)=>{
+    const b=document.createElement('button');
+    b.className='mp'+(activeMisolMes===value?' on':'');
+    b.textContent=label;
+    b.onclick=()=>{activeMisolMes=value;renderMiSol();};
+    pills.appendChild(b);
+  };
+  addPill('Última solicitud','ultima');
+  meses.forEach(m=>{
+    const [y,mo]=m.split('-');
+    addPill(new Date(y,mo-1).toLocaleDateString('es-MX',{month:'long',year:'numeric'}),m);
+  });
+
+  const sLabel={recibida:'Recibida — en espera de revisión',proceso:'En proceso — la diseñadora está trabajando',enviada:'Enviada — el material está en camino',rechazada:'Rechazada — revisa la nota'};
+
+  const renderSolCard=(sol)=>{
+    const canEdit=sol.status==='recibida';
+    const fc=fmtDate(sol.fechaCreacion);
+    const fm=fmtDate(sol.fechaModParque||sol.fechaCreacion);
+    const isOpen=expandedMiSol.has(sol.folio);
+    return `
+    <div class="sol-card" style="margin-bottom:.75rem">
+      <div class="sol-head" onclick="toggleMiSol('${sol.folio}')">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transition:.2s;transform:rotate(${isOpen?90:0}deg);color:var(--muted);flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
           <div>
-            <div class="iname">${it.nombre}</div>
-            <div class="itags">
-              <span class="bd_ bz">${it.zona}</span>
-              <span class="bd_ ${MBADGE[it.mat]||'botro'}">${it.mat}</span>
-              ${it.med?`<span class="bd_ botro">${it.med}</span>`:''}
-              <span class="bd_ botro">×${it.qty}</span>
-            </div>
-            ${it.obs?`<div class="iobs">↳ ${it.obs}</div>`:''}
+            <div class="sol-folio">${sol.folio} <span style="font-size:11.5px;font-weight:400;color:var(--muted)">${sol.items.length} art.</span></div>
+            <div class="sol-dates">${fc}${(sol.fechaModParque&&sol.fechaModParque!==sol.fechaCreacion)?` · <span style="color:var(--o)">Modif: ${fm}</span>`:''}</div>
           </div>
-          <span class="sp s-${it.status==='no-enviar'?'rechazada':'enviada'}" style="font-size:11px;align-self:flex-start">${it.status==='no-enviar'?'No se enviará':'Ok'}</span>
-        </div>`).join('')}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="sp s-${sol.status}"><span class="dot"></span>${sLabel[sol.status]}</span>
+          ${canEdit?`<button class="btn bwarn bxs" onclick="event.stopPropagation();editarSol('${sol.folio}')">✎ Editar</button>`:''}
+          ${isDesigner?`<button class="btn bdanger bxs" onclick="event.stopPropagation();borrarSol('${sol.folio}')">🗑</button>`:''}
+        </div>
+      </div>
+      <div class="sol-body${isOpen?' on':''}">
+        ${sol.notaGlobal?`<div style="padding:.875rem 1.25rem;background:#fff7ed;font-size:13px;color:#92400e;border-bottom:1px solid var(--bd)"><strong>Nota:</strong> ${sol.notaGlobal}</div>`:''}
+        <div style="padding:.875rem 1.25rem;display:flex;gap:2rem;flex-wrap:wrap;font-size:12.5px;border-bottom:1px solid var(--bd)">
+          <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Enviada</div>${fc}</div>
+          <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Última modificación</div><span style="${(sol.fechaModParque&&sol.fechaModParque!==sol.fechaCreacion)?'color:var(--o);font-weight:500':''}">${fm}</span></div>
+        </div>
+        ${sol.items.map(it=>`
+          <div class="item-row" style="padding:.75rem 1.25rem;border-bottom:1px solid var(--bd)">
+            <div class="ithumb">${it.imgData?`<img src="${it.imgData}" alt="">`:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'}</div>
+            <div>
+              <div class="iname">${it.nombre}</div>
+              <div class="itags">
+                <span class="bd_ bz">${it.zona}</span>
+                <span class="bd_ ${MBADGE[it.mat]||'botro'}">${it.mat}</span>
+                ${it.med?`<span class="bd_ botro">${it.med}</span>`:''}
+                <span class="bd_ botro">×${it.qty}</span>
+              </div>
+              ${it.obs?`<div class="iobs">↳ ${it.obs}</div>`:''}
+            </div>
+            <span class="sp s-${it.status==='no-enviar'?'rechazada':'proceso'}" style="font-size:11px;align-self:flex-start">${it.status==='no-enviar'?'No se enviará':'Ok'}</span>
+          </div>`).join('')}
+      </div>
     </div>`;
+  };
+
+  if(activeMisolMes==='ultima'){
+    const sol=[...solicitudes].sort((a,b)=>new Date(b.fechaCreacion)-new Date(a.fechaCreacion))[0];
+    // Auto-expand latest
+    expandedMiSol.add(sol.folio);
+    cont.innerHTML=renderSolCard(sol);
+  } else {
+    const delMes=solicitudes.filter(s=>s.fechaCreacion.startsWith(activeMisolMes))
+      .sort((a,b)=>new Date(b.fechaCreacion)-new Date(a.fechaCreacion));
+    if(!delMes.length){
+      cont.innerHTML='<div class="empty"><strong>Sin solicitudes</strong><p>No hay solicitudes este mes.</p></div>';
+    } else {
+      cont.innerHTML=delMes.map(renderSolCard).join('');
+    }
+  }
 }
+
+function toggleMiSol(folio){
+  if(expandedMiSol.has(folio)) expandedMiSol.delete(folio);
+  else expandedMiSol.add(folio);
+  renderMiSol();
+}
+
+
+function borrarSol(folio){
+  if(!confirm(`¿Borrar la solicitud ${folio}? Esta acción no se puede deshacer.`))return;
+  solicitudes=solicitudes.filter(s=>s.folio!==folio);
+  save(null);
+  // También borrar del Sheet
+  if(SHEETS_URL){
+    fetch(SHEETS_URL,{method:'POST',body:JSON.stringify({action:'borrar',folio})}).catch(()=>{});
+  }
+  renderMiSol();
+  renderPanel();
+  toast('Solicitud '+folio+' borrada');
+}
+
 
 function editarSol(folio){
   const sol=solicitudes.find(s=>s.folio===folio);
@@ -997,7 +1088,10 @@ function renderSolList(){
             <div class="sol-dates">Recibida: ${fc}${fmp?` · <span style="color:var(--o)">Modif. parque: ${fmp}</span>`:''}</div>
           </div>
         </div>
-        <span class="sp s-${sol.status}"><span class="dot"></span>${sLabel[sol.status]}</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="sp s-${sol.status}"><span class="dot"></span>${sLabel[sol.status]}</span>
+          <button class="btn bdanger bxs" onclick="event.stopPropagation();borrarSol('${sol.folio}')">🗑</button>
+        </div>
       </div>
       <div class="sol-body${isOpen?' on':''}">
         <!-- status selector -->
@@ -1156,11 +1250,11 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
   await load();
   initForm();updateCartUI();
   document.getElementById('nt-sol').addEventListener('click',function(){goPage('solicitud',this);});
-  document.getElementById('nt-mat').addEventListener('click',function(){goPage('materiales',this);});
   document.getElementById('nt-misol').addEventListener('click',function(){goPage('misol',this);});
   document.getElementById('nt-panel').addEventListener('click',function(){requireLogin('panel',this);});
   document.getElementById('nt-hoja').addEventListener('click',function(){requireLogin('hoja',this);});
   document.getElementById('lock-btn').addEventListener('click',toggleDesigner);
+  document.getElementById('fab-btn').addEventListener('click', toggleCpanel);
   document.getElementById('cancel-edit-btn').addEventListener('click',clearCart);
   document.getElementById('login-inp').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
 })();
