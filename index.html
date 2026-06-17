@@ -434,7 +434,8 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 
 <!-- ═══ MI SOLICITUD ═══ -->
 <div id="pg-misol" class="page">
-  <div class="ph"><h1>Mi solicitud</h1><p>Aquí puedes ver y editar tu última solicitud enviada.</p></div>
+  <div class="ph"><h1>Mis solicitudes</h1><p>Tu solicitud más reciente y tu historial por mes.</p></div>
+  <div class="est-filter" id="misol-mes-pills" style="margin-bottom:1rem"></div>
   <div id="misol-content"></div>
 </div>
 
@@ -575,7 +576,7 @@ let panelMatFilter={};
 // Cuando tengas el Apps Script desplegado, pega aquí
 // la URL del Web App (termina en /exec)
 // ══════════════════════════════════════════════════
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwwzAfc10FaYDLAVz5_Zsr11uy_YAe7FiBEbC6sLvqjj6KGrsm97ZdCG0xJ6vUgzox3/exec'; // ← pega tu URL aquí cuando esté listo
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwwzAfc10FaYDLAVz5_Zsr11uy_YAe7FiBEbC6sLvqjj6KGrsm97ZdCG0xJ6vUgzox3/exec';
 
 // Guarda en localStorage siempre, y sincroniza a Sheets si hay URL
 function save(sol){
@@ -777,7 +778,7 @@ function enviarSolicitud(){
     const sol=solicitudes.find(s=>s.folio===editingFolio);
     if(sol){
       sol.items=cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''}));
-      sol.fechaMod=now;sol.obs=obs;
+      sol.fechaMod=now;sol.fechaModParque=now;sol.obs=obs;
       sol._esEdicion=true;
       save(sol);
       toast('Solicitud '+editingFolio+' actualizada ✓');
@@ -785,7 +786,7 @@ function enviarSolicitud(){
     editingFolio=null;
   } else {
     const folio='OINK-'+(++folioCnt);
-    const newSol={folio,fechaCreacion:now,fechaEnvio:now,fechaMod:now,obs,items:cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''})),status:'recibida',notaGlobal:''};
+    const newSol={folio,fechaCreacion:now,fechaEnvio:now,fechaMod:now,fechaModParque:now,obs,items:cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''})),status:'recibida',notaGlobal:''};
     solicitudes.push(newSol);
     save(newSol);
     toast('Solicitud '+folio+' enviada ✓');
@@ -904,7 +905,7 @@ function renderMiSol(){
   const canEdit=sol.status==='recibida';
   const sLabel={recibida:'Recibida — en espera de revisión',proceso:'En proceso — la diseñadora está trabajando en ello',enviada:'Enviada — el material está en camino',rechazada:'Rechazada — revisa la nota'};
   const fc=fmtDate(sol.fechaCreacion);
-  const fm=fmtDate(sol.fechaMod);
+  const fm=fmtDate(sol.fechaModParque||sol.fechaCreacion);
   cont.innerHTML=`
     <div class="card" style="margin-bottom:1rem">
       <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
@@ -916,7 +917,7 @@ function renderMiSol(){
       </div>
       <div style="padding:1rem 1.25rem;display:flex;gap:2rem;flex-wrap:wrap;font-size:12.5px">
         <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Enviada el</div>${fc}</div>
-        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Última modificación</div><span style="${sol.fechaMod!==sol.fechaCreacion?'color:var(--o);font-weight:500':''}">${fm}</span></div>
+        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Última modificación del parque</div><span style="${(sol.fechaModParque&&sol.fechaModParque!==sol.fechaCreacion)?'color:var(--o);font-weight:500':''}">${fm}</span></div>
       </div>
       ${sol.notaGlobal?`<div style="padding:.875rem 1.25rem;border-top:1px solid var(--bd);background:#fff7ed;font-size:13px;color:#92400e"><strong>Nota de diseñadora:</strong> ${sol.notaGlobal}</div>`:''}
     </div>
@@ -985,7 +986,7 @@ function renderSolList(){
     const matF=panelMatFilter[sol.folio]||'';
     const mats=[...new Set(sol.items.map(it=>it.mat))];
     const items=matF?sol.items.filter(it=>it.mat===matF):sol.items;
-    const fc=fmtDate(sol.fechaCreacion);const fm=fmtDate(sol.fechaMod);
+    const fc=fmtDate(sol.fechaCreacion);const fmp=sol.fechaModParque&&sol.fechaModParque!==sol.fechaCreacion?fmtDate(sol.fechaModParque):null;
 
     return `<div class="sol-card">
       <div class="sol-head" onclick="toggleSol('${sol.folio}')">
@@ -993,7 +994,7 @@ function renderSolList(){
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transition:.2s;transform:rotate(${isOpen?90:0}deg);color:var(--muted);flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
           <div>
             <div class="sol-folio">${sol.folio} <span style="font-size:11.5px;font-weight:400;color:var(--muted)">${sol.items.length} art.</span></div>
-            <div class="sol-dates">Recibida: ${fc}${sol.fechaMod!==sol.fechaCreacion?` · <span style="color:var(--o)">Modif: ${fm}</span>`:''}</div>
+            <div class="sol-dates">Recibida: ${fc}${fmp?` · <span style="color:var(--o)">Modif. parque: ${fmp}</span>`:''}</div>
           </div>
         </div>
         <span class="sp s-${sol.status}"><span class="dot"></span>${sLabel[sol.status]}</span>
