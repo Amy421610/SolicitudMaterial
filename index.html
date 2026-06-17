@@ -242,10 +242,10 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 .timeline-line{width:1px;background:var(--bd);flex-shrink:0;margin-left:4px}
 
 @media print{
-  nav,.no-print{display:none!important}
-  .page{display:block!important;padding:0;max-width:100%}
-  #pg-hoja{display:block!important}
-  .hoja{border:none;padding:1rem}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  nav,.no-print,.page{display:none!important}
+  #pg-hoja{display:block!important;padding:0;max-width:100%}
+  #hoja-out .hoja{border:none;box-shadow:none;padding:1rem}
 }
 </style>
 </head>
@@ -570,7 +570,47 @@ let activeMes='';
 let expandedSols=new Set();
 let panelMatFilter={};
 
-function save(){try{localStorage.setItem('oink3',JSON.stringify({solicitudes,folioCnt}));}catch(e){}}
+// ══════════════════════════════════════════════════
+// CONFIGURACIÓN GOOGLE SHEETS
+// Cuando tengas el Apps Script desplegado, pega aquí
+// la URL del Web App (termina en /exec)
+// ══════════════════════════════════════════════════
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwwzAfc10FaYDLAVz5_Zsr11uy_YAe7FiBEbC6sLvqjj6KGrsm97ZdCG0xJ6vUgzox3/exec'; // ← pega tu URL aquí cuando esté listo
+
+// Guarda en localStorage siempre, y sincroniza a Sheets si hay URL
+function save(sol){
+  try{localStorage.setItem('oink3',JSON.stringify({solicitudes,folioCnt}));}catch(e){}
+  if(!SHEETS_URL||!sol) return;
+  // Sincronizar al Sheet en segundo plano
+  const action = sol._esEdicion ? 'actualizar' : 'guardar';
+  delete sol._esEdicion;
+  fetch(SHEETS_URL,{method:'POST',body:JSON.stringify({action,solicitud:sol})})
+    .catch(()=>{}); // silencioso — localStorage ya guardó
+}
+
+// Carga desde Sheets si hay URL, si no desde localStorage
+async function load(){
+  try{
+    const d=localStorage.getItem('oink3');
+    if(d){const p=JSON.parse(d);solicitudes=p.solicitudes||[];folioCnt=p.folioCnt||1000;
+    const cut=Date.now()-6*30*24*60*60*1000;
+    solicitudes=solicitudes.filter(s=>new Date(s.fechaCreacion).getTime()>cut);}
+  }catch(e){}
+
+  if(!SHEETS_URL) return; // sin URL, solo localStorage
+
+  try{
+    const res=await fetch(SHEETS_URL);
+    const data=await res.json();
+    if(data.ok&&data.solicitudes&&data.solicitudes.length){
+      // Merge: Sheets manda el estado más reciente
+      solicitudes=data.solicitudes;
+      if(solicitudes.length) folioCnt=Math.max(folioCnt,...solicitudes.map(s=>parseInt(s.folio.replace('OINK-',''))||0));
+      localStorage.setItem('oink3',JSON.stringify({solicitudes,folioCnt}));
+    }
+  }catch(e){} // si falla Sheets, ya tenemos localStorage
+}
+
 function load(){
   try{
     const d=localStorage.getItem('oink3');
@@ -734,19 +774,20 @@ function enviarSolicitud(){
   const obs=document.getElementById('cp-obs')?.value||'';
 
   if(editingFolio){
-    // actualizar solicitud existente
     const sol=solicitudes.find(s=>s.folio===editingFolio);
     if(sol){
       sol.items=cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''}));
       sol.fechaMod=now;sol.obs=obs;
-      save();
+      sol._esEdicion=true;
+      save(sol);
       toast('Solicitud '+editingFolio+' actualizada ✓');
     }
     editingFolio=null;
   } else {
     const folio='OINK-'+(++folioCnt);
-    solicitudes.push({folio,fechaCreacion:now,fechaEnvio:now,fechaMod:now,obs,items:cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''})),status:'recibida',notaGlobal:''});
-    save();
+    const newSol={folio,fechaCreacion:now,fechaEnvio:now,fechaMod:now,obs,items:cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''})),status:'recibida',notaGlobal:''};
+    solicitudes.push(newSol);
+    save(newSol);
     toast('Solicitud '+folio+' enviada ✓');
   }
 
@@ -1110,17 +1151,18 @@ function fmtDate(iso){return new Date(iso).toLocaleString('es-MX',{day:'2-digit'
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2400);}
 
 // INIT
-load();initForm();updateCartUI();
-
-// Nav listeners (después de que el JS cargó)
-document.getElementById('nt-sol').addEventListener('click',function(){goPage('solicitud',this);});
-document.getElementById('nt-mat').addEventListener('click',function(){goPage('materiales',this);});
-document.getElementById('nt-misol').addEventListener('click',function(){goPage('misol',this);});
-document.getElementById('nt-panel').addEventListener('click',function(){requireLogin('panel',this);});
-document.getElementById('nt-hoja').addEventListener('click',function(){requireLogin('hoja',this);});
-document.getElementById('lock-btn').addEventListener('click',toggleDesigner);
-document.getElementById('cancel-edit-btn').addEventListener('click',clearCart);
-document.getElementById('login-inp').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
+(async()=>{
+  await load();
+  initForm();updateCartUI();
+  document.getElementById('nt-sol').addEventListener('click',function(){goPage('solicitud',this);});
+  document.getElementById('nt-mat').addEventListener('click',function(){goPage('materiales',this);});
+  document.getElementById('nt-misol').addEventListener('click',function(){goPage('misol',this);});
+  document.getElementById('nt-panel').addEventListener('click',function(){requireLogin('panel',this);});
+  document.getElementById('nt-hoja').addEventListener('click',function(){requireLogin('hoja',this);});
+  document.getElementById('lock-btn').addEventListener('click',toggleDesigner);
+  document.getElementById('cancel-edit-btn').addEventListener('click',clearCart);
+  document.getElementById('login-inp').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
+})();
 </script>
 </body>
 </html>
