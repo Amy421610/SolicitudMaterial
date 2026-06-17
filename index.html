@@ -3,970 +3,1124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oink — Sistema de Material</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Oink — Material</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --oink-orange: #ee4723;
-  --oink-rose: #ffb899;
-  --oink-lard: #f4f0e1;
-  --oink-dark: #1a1008;
-  --oink-mid: #7a3a1e;
-  --oink-border: rgba(238,71,35,0.15);
-  --oink-border-strong: rgba(238,71,35,0.35);
-  --radius: 10px;
-  --radius-sm: 6px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --o:#ee4723;--o2:#d63d1c;--olight:#fff5f2;
+  --dark:#18100a;--mid:#7a4430;--muted:#a07060;
+  --bg:#f7f5ef;--surface:#fff;
+  --bd:rgba(26,14,8,.1);--bd2:rgba(26,14,8,.18);
+  --r:10px;--rsm:6px;--rlg:14px;
+  --sh:0 1px 4px rgba(0,0,0,.07);
 }
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--oink-lard);
-  color: var(--oink-dark);
-  min-height: 100vh;
-}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;font-size:14px;line-height:1.5}
+button,input,select,textarea{font-family:inherit}
 
 /* NAV */
-nav {
-  background: var(--oink-orange);
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  height: 56px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.nav-logo {
-  font-weight: 600;
-  font-size: 18px;
-  color: white;
-  letter-spacing: -0.3px;
-  margin-right: 2rem;
-}
-
-.nav-tab {
-  height: 56px;
-  padding: 0 1.25rem;
-  display: flex;
-  align-items: center;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.7);
-  border: none;
-  background: none;
-  cursor: pointer;
-  border-bottom: 2.5px solid transparent;
-  transition: all 0.15s;
-  gap: 6px;
-}
-
-.nav-tab:hover { color: white; }
-.nav-tab.active { color: white; border-bottom-color: white; }
+nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:flex;align-items:center;height:52px;position:sticky;top:0;z-index:200;gap:0}
+.brand{font-size:15px;font-weight:600;color:var(--o);margin-right:1.5rem;display:flex;align-items:center;gap:5px}
+.ntab{height:52px;padding:0 .875rem;display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:500;color:var(--muted);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
+.ntab:hover{color:var(--dark)}
+.ntab.on{color:var(--o);border-bottom-color:var(--o)}
+.cbadge{background:var(--o);color:white;font-size:10px;font-weight:600;border-radius:20px;padding:1px 6px;min-width:17px;text-align:center}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.lock-btn{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--bd2);background:white;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:5px;transition:.15s}
+.lock-btn:hover{background:var(--bg)}
 
 /* PAGES */
-.page { display: none; padding: 2rem; max-width: 860px; margin: 0 auto; }
-.page.active { display: block; }
+.page{display:none;padding:1.5rem;max-width:980px;margin:0 auto;width:100%}
+.page.on{display:block}
+.ph{margin-bottom:1.25rem}
+.ph h1{font-size:20px;font-weight:600;letter-spacing:-.3px}
+.ph p{font-size:13px;color:var(--muted);margin-top:2px}
 
-/* SECTION HEADER */
-.section-title {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--oink-dark);
-  margin-bottom: 0.25rem;
-}
-.section-sub {
-  font-size: 14px;
-  color: var(--oink-mid);
-  margin-bottom: 1.5rem;
-}
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);box-shadow:var(--sh)}
+.cp{padding:1.25rem 1.5rem}
 
-/* CARDS */
-.card {
-  background: white;
-  border: 0.5px solid var(--oink-border);
-  border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1rem;
-}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 15px;border-radius:var(--rsm);font-size:13px;font-weight:500;border:none;cursor:pointer;transition:.15s;line-height:1;white-space:nowrap}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.bp{background:var(--o);color:white}.bp:hover{background:var(--o2)}
+.bo{background:white;color:var(--dark);border:1px solid var(--bd2)}.bo:hover{background:var(--bg)}
+.bg_{background:transparent;color:var(--muted);border:1px solid var(--bd)}.bg_:hover{background:var(--bg);color:var(--dark)}
+.bsm{padding:5px 11px;font-size:12px}
+.bxs{padding:3px 8px;font-size:11px;border-radius:4px}
+.bdanger{background:#fee2e2;color:#991b1b}.bdanger:hover{background:#fecaca}
+.bsuccess{background:#dcfce7;color:#166534}.bsuccess:hover{background:#bbf7d0}
+.bwarn{background:#fef3c7;color:#92400e}.bwarn:hover{background:#fde68a}
 
-/* FORM */
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
+/* FORMS */
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.fg input,.fg select,.fg textarea{padding:9px 11px;border:1px solid var(--bd2);border-radius:var(--rsm);font-size:13.5px;color:var(--dark);background:white;outline:none;transition:.15s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--o);box-shadow:0 0 0 3px rgba(238,71,35,.1)}
+.fg textarea{resize:vertical;min-height:64px}
+.fg input[disabled],.fg select[disabled]{background:var(--bg);color:var(--muted);cursor:not-allowed}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.875rem}
+.full{grid-column:1/-1}
+@media(max-width:580px){.g2,.g3{grid-template-columns:1fr}.full{grid-column:1}}
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group.full { grid-column: 1 / -1; }
-
-label {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--oink-mid);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-
-select, input[type="number"], input[type="text"], textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--oink-border-strong);
-  border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  color: var(--oink-dark);
-  background: white;
-  outline: none;
-  transition: border-color 0.15s;
-}
-select:focus, input:focus, textarea:focus {
-  border-color: var(--oink-orange);
-  box-shadow: 0 0 0 3px rgba(238,71,35,0.12);
-}
-
-textarea { resize: vertical; min-height: 80px; }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  transition: all 0.15s;
-}
-
-.btn-primary {
-  background: var(--oink-orange);
-  color: white;
-}
-.btn-primary:hover { background: #d93f1f; }
-
-.btn-secondary {
-  background: white;
-  color: var(--oink-orange);
-  border: 1px solid var(--oink-border-strong);
-}
-.btn-secondary:hover { background: var(--oink-lard); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--oink-mid);
-  border: 1px solid var(--oink-border);
-}
-.btn-ghost:hover { background: var(--oink-lard); }
-
-/* ARTÍCULO PREVIEW */
-.art-preview {
-  background: var(--oink-lard);
-  border: 1px dashed var(--oink-border-strong);
-  border-radius: var(--radius-sm);
-  padding: 1rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.art-img {
-  width: 80px;
-  height: 60px;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
-  background: var(--oink-rose);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  color: var(--oink-mid);
-  text-align: center;
-}
-
-/* CARRITO / LISTA */
-.item-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto auto;
-  gap: 8px;
-  align-items: center;
-  padding: 10px 12px;
-  border-bottom: 0.5px solid var(--oink-border);
-}
-.item-row:last-child { border-bottom: none; }
-
-.item-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.badge-zone {
-  background: rgba(238,71,35,0.1);
-  color: var(--oink-orange);
-}
-
-.badge-motivo-roto { background: #fdecea; color: #c62828; }
-.badge-motivo-desp { background: #fff3e0; color: #e65100; }
-.badge-motivo-falt { background: #e8f5e9; color: #2e7d32; }
-.badge-motivo-act  { background: #e3f2fd; color: #1565c0; }
-.badge-motivo-otro { background: #f3e5f5; color: #6a1b9a; }
+/* BADGE */
+.bd_{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+.bz{background:rgba(238,71,35,.1);color:var(--o)}
+.bsintra{background:#ede9fe;color:#5b21b6}
+.bvinil{background:#dbeafe;color:#1d4ed8}
+.bacrilico{background:#d1fae5;color:#065f46}
+.bcoroplast{background:#fef3c7;color:#92400e}
+.bestireno{background:#fce7f3;color:#9d174d}
+.bmdf{background:#e0f2fe;color:#0369a1}
+.bparche{background:#fff7ed;color:#c2410c}
+.botro{background:#f3f4f6;color:#374151}
 
 /* STATUS */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-.status-pendiente { background: #fff8e1; color: #f57f17; }
-.status-aprobado  { background: #e8f5e9; color: #2e7d32; }
-.status-rechazado { background: #fdecea; color: #c62828; }
-.status-enviado   { background: #e3f2fd; color: #1565c0; }
+.sp{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:500}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;display:inline-block}
+.s-recibida{background:#fef9c3;color:#854d0e}.s-recibida .dot{background:#d97706}
+.s-proceso{background:#dbeafe;color:#1e40af}.s-proceso .dot{background:#2563eb}
+.s-enviada{background:#dcfce7;color:#166534}.s-enviada .dot{background:#16a34a}
+.s-rechazada{background:#fee2e2;color:#991b1b}.s-rechazada .dot{background:#dc2626}
+
+/* ITEM ROW */
+.item-row{display:grid;grid-template-columns:64px 1fr auto;gap:.75rem;align-items:start;padding:.875rem 0;border-bottom:1px solid var(--bd)}
+.item-row:last-child{border-bottom:none}
+.ithumb{width:64px;height:50px;border-radius:var(--rsm);object-fit:cover;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.ithumb img{width:100%;height:100%;object-fit:cover}
+.iname{font-size:13px;font-weight:500;margin-bottom:3px}
+.itags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.iobs{font-size:11.5px;color:var(--muted);margin-top:3px}
+.iqty{display:flex;align-items:center;gap:7px;margin-top:5px}
+.qbtn{width:25px;height:25px;border-radius:50%;border:1px solid var(--bd2);background:white;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.qbtn:hover{background:var(--o);color:white;border-color:var(--o)}
+.qnum{font-size:13px;font-weight:600;min-width:18px;text-align:center}
+
+/* SPECIAL CARDS */
+.special-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.special-card{background:white;border:1px solid var(--bd);border-radius:var(--rlg);padding:1.25rem;cursor:pointer;transition:.15s}
+.special-card:hover{border-color:rgba(238,71,35,.4);box-shadow:0 4px 14px rgba(238,71,35,.1)}
+.sc-icon{font-size:28px;margin-bottom:.5rem}
+.sc-title{font-size:13.5px;font-weight:600;color:var(--dark);margin-bottom:.375rem}
+.sc-sub{font-size:12px;color:var(--muted);margin-bottom:.875rem;line-height:1.45}
+
+/* MATERIALES GRID */
+.zone-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.zp{padding:5px 14px;border-radius:20px;font-size:12.5px;font-weight:500;border:1px solid var(--bd2);background:white;color:var(--mid);cursor:pointer;transition:.15s}
+.zp:hover{border-color:var(--o);color:var(--o)}
+.zp.on{background:var(--o);border-color:var(--o);color:white}
+.mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.875rem}
+.mcard{background:white;border:1px solid var(--bd);border-radius:var(--rlg);overflow:hidden;transition:.15s;position:relative}
+.mcard:hover{border-color:rgba(238,71,35,.35);box-shadow:0 4px 14px rgba(238,71,35,.1)}
+.mcard.incart{border-color:var(--o);background:var(--olight)}
+.mimg{width:100%;height:128px;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mimg img{width:100%;height:100%;object-fit:cover}
+.minfo{padding:.75rem .875rem}
+.mname{font-size:12.5px;font-weight:500;line-height:1.35;margin-bottom:5px}
+.mmeta{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:.375rem}
+.mmed{font-size:11px;color:var(--muted);margin-bottom:.625rem}
+.madd{width:100%;padding:7px;border-radius:var(--rsm);font-size:12px;font-weight:500;background:var(--bg);color:var(--o);border:1px solid rgba(238,71,35,.22);cursor:pointer;transition:.15s}
+.madd:hover,.madd.on{background:var(--o);color:white;border-color:var(--o)}
+.incart-n{position:absolute;top:7px;right:7px;background:var(--o);color:white;font-size:10px;font-weight:600;border-radius:20px;padding:2px 7px}
+
+/* CARRITO LATERAL */
+.cpanel{position:fixed;right:0;top:52px;bottom:0;width:310px;background:white;border-left:1px solid var(--bd);display:flex;flex-direction:column;z-index:150;transform:translateX(100%);transition:transform .2s ease}
+.cpanel.on{transform:translateX(0)}
+.cp-head{padding:.875rem 1.25rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.cp-head h2{font-size:14px;font-weight:600}
+.cp-items{flex:1;overflow-y:auto;padding:.75rem 1rem}
+.cp-item{padding:.625rem 0;border-bottom:1px solid var(--bd)}
+.cp-item:last-child{border-bottom:none}
+.cpi-name{font-size:12.5px;font-weight:500;margin-bottom:3px}
+.cpi-meta{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.cpi-qty{display:flex;align-items:center;gap:6px;margin-top:5px}
+.cpi-rm{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px}
+.cpi-rm:hover{color:#dc2626}
+.cp-foot{padding:1rem;border-top:1px solid var(--bd)}
+.cp-obs{width:100%;padding:7px 9px;border:1px solid var(--bd2);border-radius:var(--rsm);font-size:12px;resize:none;min-height:50px;margin-bottom:.75rem}
+.cp-obs:focus{outline:none;border-color:var(--o)}
+
+/* FAB */
+.fab{position:fixed;bottom:1.5rem;right:1.5rem;z-index:160;display:none}
 
 /* PANEL DISEÑADORA */
-.solicitud-card {
-  background: white;
-  border: 0.5px solid var(--oink-border);
-  border-radius: var(--radius);
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
+.mes-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.mp{padding:5px 14px;border-radius:20px;font-size:12.5px;font-weight:500;border:1px solid var(--bd2);background:white;color:var(--mid);cursor:pointer;transition:.15s}
+.mp:hover{color:var(--dark)}
+.mp.on{background:var(--dark);color:white;border-color:var(--dark)}
 
-.solicitud-header {
-  padding: 0.875rem 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 0.5px solid var(--oink-border);
-  background: var(--oink-lard);
-}
+.est-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
 
-.solicitud-body { padding: 1rem 1.25rem; }
+.sol-card{background:white;border:1px solid var(--bd);border-radius:var(--r);margin-bottom:.75rem;overflow:hidden}
+.sol-head{padding:.875rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;transition:.15s}
+.sol-head:hover{background:var(--bg)}
+.sol-folio{font-size:13.5px;font-weight:600}
+.sol-dates{font-size:11.5px;color:var(--muted);margin-top:1px}
+.sol-body{border-top:1px solid var(--bd);display:none}
+.sol-body.on{display:block}
 
-.sol-items-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-}
-.sol-items-table th {
-  text-align: left;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--oink-mid);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  padding: 0 8px 8px 0;
-  border-bottom: 0.5px solid var(--oink-border);
-}
-.sol-items-table td {
-  padding: 8px 8px 8px 0;
-  border-bottom: 0.5px solid var(--oink-border);
-  color: var(--oink-dark);
-  vertical-align: top;
-}
-.sol-items-table tr:last-child td { border-bottom: none; }
+/* Status selector en panel */
+.status-sel-wrap{padding:.75rem 1.25rem;background:var(--bg);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.status-sel{padding:6px 10px;border:1px solid var(--bd2);border-radius:var(--rsm);font-size:13px;font-weight:500;color:var(--dark);background:white;outline:none;cursor:pointer}
+.status-sel:focus{border-color:var(--o)}
 
-.action-row {
-  display: flex;
-  gap: 8px;
-  padding: 0.875rem 1.25rem;
-  border-top: 0.5px solid var(--oink-border);
-  justify-content: flex-end;
-}
+/* art row panel */
+.art-row-p{display:grid;grid-template-columns:52px 1fr auto;gap:.75rem;align-items:start;padding:.875rem 1.25rem;border-bottom:1px solid var(--bd)}
+.art-row-p:last-child{border-bottom:none}
+.art-row-p.is-no{opacity:.55;background:#fafafa}
+.athumb{width:52px;height:40px;border-radius:var(--rsm);object-fit:cover;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.athumb img{width:100%;height:100%;object-fit:cover}
+.aname{font-size:13px;font-weight:500;margin-bottom:3px}
+.atags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.aobs{font-size:11.5px;color:var(--muted);margin-top:3px}
+.anota{width:100%;padding:5px 8px;border:1px solid var(--bd);border-radius:var(--rsm);font-size:11.5px;background:var(--bg);resize:none;min-height:32px;margin-top:5px}
+.anota:focus{outline:none;border-color:var(--o);background:white}
+.pchecks{display:flex;flex-direction:column;gap:5px;min-width:118px}
+.pcrow{display:flex;align-items:center;gap:6px;cursor:pointer}
+.pcrow input[type=checkbox]{width:14px;height:14px;accent-color:var(--o);cursor:pointer}
+.pcrow span{font-size:12px;color:var(--mid)}
+.pcrow input:checked+span{color:var(--dark);font-weight:500}
+.artbtns{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;margin-top:6px}
 
-/* HOJA DE ENTREGA */
-.hoja-print-area {
-  background: white;
-  border: 0.5px solid var(--oink-border);
-  border-radius: var(--radius);
-  padding: 2.5rem;
-  font-family: 'DM Mono', monospace;
-}
+/* mat filter toolbar */
+.mat-toolbar{padding:.5rem 1.25rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--bg)}
+.mfp{padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:500;border:1px solid var(--bd);background:white;color:var(--mid);cursor:pointer;transition:.15s}
+.mfp.on{background:var(--dark);color:white;border-color:var(--dark)}
 
-.hoja-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid var(--oink-orange);
-}
+/* LOGIN OVERLAY */
+.login-overlay{position:fixed;inset:0;background:rgba(24,16,10,.6);backdrop-filter:blur(4px);z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem}
+.login-box{background:white;border-radius:var(--rlg);padding:2rem;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.login-box h2{font-size:18px;font-weight:600;margin-bottom:.5rem}
+.login-box p{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
+.login-inp{width:100%;padding:10px 12px;border:1px solid var(--bd2);border-radius:var(--rsm);font-size:14px;outline:none;margin-bottom:.875rem;text-align:center;letter-spacing:2px}
+.login-inp:focus{border-color:var(--o);box-shadow:0 0 0 3px rgba(238,71,35,.1)}
+.login-err{font-size:12px;color:#dc2626;margin-top:-.5rem;margin-bottom:.875rem;display:none}
 
-.hoja-logo-block .brand { font-size: 24px; font-weight: 600; color: var(--oink-orange); }
-.hoja-logo-block .sub { font-size: 11px; color: var(--oink-mid); margin-top: 2px; }
+/* MODAL */
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:300;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:.15s}
+.moverlay.on{opacity:1;pointer-events:all}
+.modal{background:white;border-radius:var(--rlg);padding:1.5rem;max-width:460px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.18)}
+.modal h3{font-size:15px;font-weight:600;margin-bottom:1rem}
+.mfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:1.25rem}
+.upzone{border:2px dashed var(--bd2);border-radius:var(--r);padding:1.25rem;text-align:center;cursor:pointer;transition:.15s;background:var(--bg)}
+.upzone:hover{border-color:var(--o);background:var(--olight)}
+.upzone input{display:none}
+.upzone p{font-size:12px;color:var(--muted);margin-top:5px}
+.up-prev{width:80px;height:60px;border-radius:var(--rsm);object-fit:cover;margin:0 auto 6px;display:none}
 
-.hoja-meta { text-align: right; font-size: 12px; color: var(--oink-mid); }
-.hoja-meta strong { color: var(--oink-dark); }
-
-.hoja-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12.5px;
-  margin-bottom: 2rem;
-}
-.hoja-table th {
-  background: var(--oink-orange);
-  color: white;
-  text-align: left;
-  padding: 8px 10px;
-  font-weight: 500;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-.hoja-table td {
-  padding: 8px 10px;
-  border-bottom: 0.5px solid var(--oink-border);
-}
-.hoja-table tr:nth-child(even) td { background: var(--oink-lard); }
-
-.firma-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-top: 3rem;
-}
-.firma-block { text-align: center; }
-.firma-line {
-  border-top: 1px solid var(--oink-dark);
-  margin: 3rem auto 0.5rem;
-  width: 80%;
-}
-.firma-label { font-size: 11px; color: var(--oink-mid); }
+/* HOJA */
+.hoja{background:white;border:1px solid var(--bd);border-radius:var(--rlg);padding:2.5rem;margin-top:1rem}
+.hoja-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:2.5px solid var(--o)}
+.hbrand{font-size:22px;font-weight:700;color:var(--o);letter-spacing:-.5px}
+.hbrand small{font-size:12px;font-weight:400;color:var(--muted);display:block;margin-top:1px}
+.hmeta{text-align:right;font-size:12px;color:var(--muted);line-height:1.9}
+.hmeta strong{color:var(--dark)}
+.htable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:2rem}
+.htable th{background:var(--o);color:white;text-align:left;padding:7px 10px;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.htable td{padding:8px 10px;border-bottom:1px solid var(--bd);vertical-align:middle}
+.htable tr.noenv td{color:var(--muted);text-decoration:line-through;background:#fafafa}
+.htable tr:nth-child(even):not(.noenv) td{background:#faf9f7}
+.firma-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
+.firma-box{text-align:center}
+.fline{border-top:1px solid var(--dark);width:85%;margin:2.5rem auto .5rem}
+.fname{font-size:11px;font-weight:500}
+.fsub{font-size:10px;color:var(--muted)}
 
 /* TOAST */
-.toast {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  background: var(--oink-dark);
-  color: white;
-  padding: 12px 18px;
-  border-radius: var(--radius);
-  font-size: 14px;
-  z-index: 999;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: all 0.2s;
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateY(0); }
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(6px);background:var(--dark);color:white;padding:9px 16px;border-radius:var(--r);font-size:13px;z-index:999;opacity:0;transition:.2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* EMPTY STATE */
-.empty {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: var(--oink-mid);
-}
-.empty svg { margin-bottom: 1rem; opacity: 0.3; }
-.empty p { font-size: 14px; }
+/* EMPTY */
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--muted)}
+.empty strong{display:block;font-size:15px;color:var(--dark);margin-bottom:4px}
+.empty p{font-size:13px}
 
-/* TABS INLINE */
-.filter-row {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-.filter-btn {
-  padding: 5px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1px solid var(--oink-border-strong);
-  background: white;
-  color: var(--oink-mid);
-  transition: all 0.15s;
-}
-.filter-btn.active {
-  background: var(--oink-orange);
-  color: white;
-  border-color: var(--oink-orange);
-}
+/* MI SOLICITUD */
+.timeline-dot{width:10px;height:10px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:4px}
+.timeline-item{display:flex;gap:.75rem;margin-bottom:1rem}
+.timeline-line{width:1px;background:var(--bd);flex-shrink:0;margin-left:4px}
 
-@media print {
-  nav, .no-print { display: none !important; }
-  .page { display: block !important; max-width: 100%; padding: 0; }
-  #page-hoja { display: block !important; }
-}
-
-@media (max-width: 600px) {
-  .form-grid { grid-template-columns: 1fr; }
-  .form-group.full { grid-column: 1; }
+@media print{
+  nav,.no-print{display:none!important}
+  .page{display:block!important;padding:0;max-width:100%}
+  #pg-hoja{display:block!important}
+  .hoja{border:none;padding:1rem}
 }
 </style>
 </head>
 <body>
 
+<!-- LOGIN OVERLAY (diseñadora) -->
+<div class="login-overlay" id="login-overlay" style="display:none">
+  <div class="login-box">
+    <div style="font-size:32px;margin-bottom:.5rem">🔒</div>
+    <h2>Área de diseñadora</h2>
+    <p>Ingresa la contraseña para continuar</p>
+    <input class="login-inp" type="password" id="login-inp" placeholder="••••••••">
+    <div class="login-err" id="login-err">Contraseña incorrecta</div>
+    <button class="btn bp" style="width:100%;justify-content:center" onclick="tryLogin()">Entrar</button>
+    <button class="btn bg_ bsm" style="margin-top:.75rem;width:100%;justify-content:center" onclick="cancelLogin()">Cancelar</button>
+  </div>
+</div>
+
 <nav>
-  <span class="nav-logo">🐷 Oink</span>
-  <button class="nav-tab active" onclick="showPage('solicitud', this)">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-    Solicitud
+  <div class="brand"><span>🐷</span>Oink</div>
+  <!-- PARQUE -->
+  <button class="ntab on" id="nt-sol">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    Nueva solicitud
   </button>
-  <button class="nav-tab" onclick="showPage('panel', this)">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-    Panel Diseñadora
+  <button class="ntab" id="nt-mat">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Catálogo
+    <span class="cbadge" id="cb" style="display:none">0</span>
   </button>
-  <button class="nav-tab" onclick="showPage('hoja', this)">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-    Hoja de Entrega
+  <button class="ntab" id="nt-misol">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+    Mi solicitud
   </button>
+  <!-- DISEÑADORA (requiere login) -->
+  <button class="ntab" id="nt-panel" style="display:none">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Panel
+  </button>
+  <button class="ntab" id="nt-hoja" style="display:none">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M8 10h8M8 14h6"/></svg>
+    Hoja de entrega
+  </button>
+  <div class="nav-right">
+    <button class="lock-btn" id="lock-btn">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      <span id="lock-label">Diseñadora</span>
+    </button>
+  </div>
 </nav>
 
-<!-- ══════════════════════════════════════════════
-     PAGE 1: SOLICITUD (vista del parque)
-══════════════════════════════════════════════ -->
-<div id="page-solicitud" class="page active">
-  <div class="section-title">Solicitud de material</div>
-  <div class="section-sub">Agrega los artículos que necesitas y envía tu solicitud.</div>
+<!-- ═══ NUEVA SOLICITUD ═══ -->
+<div id="pg-solicitud" class="page on">
+  <div class="ph"><h1>Nueva solicitud</h1><p>Agrega los artículos que necesitas. También puedes agregarlos desde el <strong>Catálogo</strong>.</p></div>
 
-  <div class="card">
-    <div class="form-grid">
-      <div class="form-group">
+  <div id="editing-banner" style="display:none;background:#fef9c3;border:1px solid #fde047;border-radius:var(--rsm);padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;color:#854d0e;align-items:center;gap:8px">
+    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>Estás editando una solicitud ya enviada. Al dar "Enviar" se actualizará con los cambios.</span>
+    <button id="cancel-edit-btn" style="margin-left:auto;background:none;border:none;cursor:pointer;color:#854d0e;font-size:12px;font-weight:500">Cancelar edición</button>
+  </div>
+
+  <div class="card cp" style="margin-bottom:1rem">
+    <div style="font-size:13px;font-weight:600;margin-bottom:.875rem;color:var(--dark)">Agregar artículo</div>
+    <div class="g2" style="margin-bottom:.875rem">
+      <div class="fg">
         <label>Zona</label>
-        <select id="zona" onchange="filtrarArticulos()">
+        <select id="f-zona" onchange="filtrarArts()">
           <option value="">Selecciona zona…</option>
-          <option>Taquilla</option>
-          <option>Comedero</option>
-          <option>Baños</option>
-          <option>Oinkstore</option>
-          <option>Estancia</option>
-          <option>Candy Oink</option>
-          <option>Fiestas</option>
-          <option>Arcade</option>
-          <option>Zona de juego</option>
-          <option>Otro / Nueva zona</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="fg">
         <label>Artículo</label>
-        <select id="articulo" onchange="actualizarPreview()">
-          <option value="">Primero selecciona zona…</option>
+        <select id="f-art" onchange="autoFill()">
+          <option value="">Primero elige zona…</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Material</label>
-        <select id="material">
-          <option>Sintra</option>
-          <option>Vinil</option>
-          <option>Coroplast</option>
-          <option>Acrílico</option>
-          <option>Estireno</option>
-          <option>Parche en vinil</option>
-          <option>MDF</option>
-          <option>Otro</option>
-        </select>
+    </div>
+
+    <!-- Preview artículo seleccionado -->
+    <div id="art-preview" style="display:none;margin-bottom:.875rem">
+      <div style="display:flex;gap:.875rem;align-items:center;background:var(--bg);border-radius:var(--rsm);padding:.75rem">
+        <div id="prev-img" style="width:72px;height:54px;border-radius:var(--rsm);overflow:hidden;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--bd)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:500" id="prev-name">—</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px" id="prev-info">—</div>
+        </div>
       </div>
-      <div class="form-group">
+    </div>
+
+    <div class="g2" style="margin-bottom:.875rem">
+      <div class="fg">
+        <label>Material <span style="font-size:10px;color:var(--muted);font-weight:400">(se asigna solo)</span></label>
+        <input type="text" id="f-mat" disabled placeholder="Se asigna al elegir artículo">
+      </div>
+      <div class="fg">
         <label>Cantidad</label>
-        <input type="number" id="cantidad" min="1" value="1" placeholder="1">
+        <input type="number" id="f-qty" value="1" min="1">
       </div>
-      <div class="form-group">
+      <div class="fg">
         <label>Motivo</label>
-        <select id="motivo">
-          <option>Faltante</option>
-          <option>Roto/Dañado</option>
-          <option>Despintado/Viejo</option>
-          <option>Actualización de diseño</option>
-          <option>Actualización de precios</option>
-          <option>Nuevo diseño</option>
-          <option>Otro</option>
+        <select id="f-motivo">
+          <option>Faltante</option><option>Roto/Dañado</option><option>Despintado/Viejo</option>
+          <option>Actualización de diseño</option><option>Actualización de precios</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Medidas (si aplica)</label>
-        <input type="text" id="medidas" placeholder="ej. 30 x 25 cm">
+      <div class="fg">
+        <label>Medidas (si difieren)</label>
+        <input type="text" id="f-medidas" placeholder="ej. 30 × 25 cm">
       </div>
-      <div class="form-group full">
-        <label>Observaciones / detalles del daño</label>
-        <textarea id="observaciones" placeholder="ej. El parche debe ser de 20cm, el vinilo se está despegando desde la esquina inferior..."></textarea>
-      </div>
-    </div>
-
-    <div id="preview-articulo" class="art-preview" style="margin-top:1rem; display:none;">
-      <div class="art-img" id="preview-img">Sin imagen</div>
-      <div>
-        <div style="font-size:13px; font-weight:500; margin-bottom:4px;" id="preview-nombre">—</div>
-        <div style="font-size:12px; color:var(--oink-mid);" id="preview-zona-label">—</div>
-        <div style="font-size:12px; color:var(--oink-mid); margin-top:2px;" id="preview-medida-label">—</div>
+      <div class="fg full">
+        <label>Observaciones</label>
+        <textarea id="f-obs" placeholder="Estado del material, detalles del daño, si necesitas otro material específico…"></textarea>
       </div>
     </div>
-
-    <div style="display:flex; gap:8px; margin-top:1.25rem; justify-content:flex-end;">
-      <button class="btn btn-primary" onclick="agregarArticulo()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <div style="display:flex;justify-content:flex-end">
+      <button class="btn bp" onclick="addItem()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Agregar artículo
       </button>
     </div>
   </div>
 
-  <!-- Lista de artículos agregados -->
-  <div id="lista-articulos" style="display:none;">
-    <div style="font-size:13px; font-weight:500; color:var(--oink-mid); text-transform:uppercase; letter-spacing:0.4px; margin-bottom:0.75rem;">
-      Artículos en esta solicitud
+  <!-- ¿No encuentras lo que buscas? -->
+  <div>
+    <div style="font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.75rem">¿No encuentras lo que buscas?</div>
+    <div class="special-grid">
+      <div class="special-card" onclick="openModal('m-parche')">
+        <div class="sc-icon">🩹</div>
+        <div class="sc-title">Parche / reemplazo</div>
+        <div class="sc-sub">El material está dañado y necesitas un parche de vinil. Adjunta una foto del daño.</div>
+        <button class="btn bo bsm" onclick="event.stopPropagation();openModal('m-parche')">Agregar parche</button>
+      </div>
+      <div class="special-card" onclick="openModal('m-nuevo')">
+        <div class="sc-icon">✏️</div>
+        <div class="sc-title">Nuevo diseño</div>
+        <div class="sc-sub">Necesitas algo que no existe aún. Descríbenos qué necesitas y para qué área.</div>
+        <button class="btn bo bsm" onclick="event.stopPropagation();openModal('m-nuevo')">Solicitar diseño</button>
+      </div>
     </div>
-    <div class="card" style="padding:0;">
-      <div id="items-container"></div>
-    </div>
+  </div>
 
-    <div style="display:flex; gap:8px; margin-top:1rem; justify-content:flex-end; flex-wrap:wrap;">
-      <button class="btn btn-secondary" onclick="limpiarTodo()">Cancelar todo</button>
-      <button class="btn btn-primary" onclick="enviarSolicitud()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+  <!-- Lista de artículos en el carrito actual -->
+  <div id="sol-preview" style="display:none;margin-top:1.5rem">
+    <div style="font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.625rem">Artículos en esta solicitud</div>
+    <div class="card" style="padding:0;margin-bottom:1rem"><div id="sol-items"></div></div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap">
+      <button class="btn bg_" onclick="clearCart()">Cancelar todo</button>
+      <button class="btn bp" onclick="enviarSolicitud()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9"/></svg>
         Enviar solicitud
       </button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     PAGE 2: PANEL DISEÑADORA
-══════════════════════════════════════════════ -->
-<div id="page-panel" class="page">
-  <div class="section-title">Panel de solicitudes</div>
-  <div class="section-sub">Revisa, aprueba y gestiona todo el material pendiente.</div>
-
-  <div class="filter-row">
-    <button class="filter-btn active" onclick="filtrarPanel('todas', this)">Todas</button>
-    <button class="filter-btn" onclick="filtrarPanel('pendiente', this)">Pendientes</button>
-    <button class="filter-btn" onclick="filtrarPanel('aprobado', this)">Aprobadas</button>
-    <button class="filter-btn" onclick="filtrarPanel('rechazado', this)">Rechazadas</button>
-    <button class="filter-btn" onclick="filtrarPanel('enviado', this)">Enviadas</button>
-  </div>
-
-  <div id="panel-lista"></div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     PAGE 3: HOJA DE ENTREGA
-══════════════════════════════════════════════ -->
-<div id="page-hoja" class="page">
-  <div class="section-title">Hoja de entrega</div>
-  <div class="section-sub">Genera el justificante para enviar con el material.</div>
-
-  <div style="display:flex; gap:8px; margin-bottom:1.5rem;" class="no-print">
-    <select id="hoja-solicitud-sel" style="width:auto; flex:1;">
-      <option value="">Selecciona solicitud aprobada…</option>
-    </select>
-    <button class="btn btn-primary" onclick="generarHoja()">Generar</button>
-    <button class="btn btn-secondary" onclick="window.print()">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6,9 6,2 18,2 18,9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-      Imprimir / PDF
+<!-- ═══ CATÁLOGO ═══ -->
+<div id="pg-materiales" class="page">
+  <div class="ph"><h1>Catálogo de materiales</h1><p>Busca el artículo y agrégalo directamente a tu solicitud.</p></div>
+  <div class="zone-pills" id="zpills"></div>
+  <div class="mat-grid" id="mgrid"></div>
+  <div class="fab" id="fab">
+    <button class="btn bp" onclick="toggleCpanel()" style="border-radius:30px;box-shadow:0 4px 20px rgba(238,71,35,.35);padding:12px 20px">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      Ver solicitud · <span id="fab-n">0</span>
     </button>
   </div>
+</div>
 
-  <div id="hoja-content">
-    <div class="empty">
-      <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-      <p>Selecciona una solicitud aprobada para generar su hoja de entrega.</p>
-    </div>
+<!-- CARRITO LATERAL -->
+<div id="cpanel" class="cpanel">
+  <div class="cp-head">
+    <h2>Solicitud actual</h2>
+    <button class="btn bg_ bsm" onclick="toggleCpanel()">Cerrar ✕</button>
+  </div>
+  <div class="cp-items" id="cp-items-list"></div>
+  <div class="cp-foot">
+    <textarea class="cp-obs" id="cp-obs" placeholder="Observación general…"></textarea>
+    <button class="btn bp" style="width:100%;justify-content:center" onclick="enviarSolicitud()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9"/></svg>
+      Enviar solicitud
+    </button>
   </div>
 </div>
 
-<!-- TOAST -->
+<!-- ═══ MI SOLICITUD ═══ -->
+<div id="pg-misol" class="page">
+  <div class="ph"><h1>Mi solicitud</h1><p>Aquí puedes ver y editar tu última solicitud enviada.</p></div>
+  <div id="misol-content"></div>
+</div>
+
+<!-- ═══ PANEL DISEÑADORA ═══ -->
+<div id="pg-panel" class="page">
+  <div class="ph"><h1>Panel diseñadora</h1><p>Gestiona solicitudes por mes y lleva el control de producción.</p></div>
+  <div class="est-filter" id="est-filter">
+    <button class="mp on" onclick="setEst('',this)">Todas</button>
+    <button class="mp" onclick="setEst('recibida',this)">Recibidas</button>
+    <button class="mp" onclick="setEst('proceso',this)">En proceso</button>
+    <button class="mp" onclick="setEst('enviada',this)">Enviadas</button>
+    <button class="mp" onclick="setEst('rechazada',this)">Rechazadas</button>
+  </div>
+  <div class="mes-pills" id="mes-pills"></div>
+  <div id="panel-list"></div>
+</div>
+
+<!-- ═══ HOJA ENTREGA ═══ -->
+<div id="pg-hoja" class="page">
+  <div class="ph"><h1>Hoja de entrega</h1><p>Genera el justificante con firma para enviar con el material.</p></div>
+  <div class="card cp no-print" style="margin-bottom:1rem">
+    <div class="g2" style="align-items:flex-end">
+      <div class="fg"><label>Solicitud en proceso o enviada</label>
+        <select id="h-sel"><option value="">Selecciona…</option></select>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn bp" onclick="genHoja()">Generar</button>
+        <button class="btn bo" onclick="window.print()">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir / PDF
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="hoja-out"><div class="empty"><strong>Sin hoja generada</strong><p>Selecciona una solicitud arriba.</p></div></div>
+</div>
+
+<!-- MODALES -->
+<div class="moverlay" id="m-parche">
+  <div class="modal">
+    <h3>🩹 Parche / reemplazo con foto</h3>
+    <div style="display:flex;flex-direction:column;gap:.75rem">
+      <div class="g2">
+        <div class="fg"><label>Zona</label><select id="mp-zona"><option value="">…</option></select></div>
+        <div class="fg"><label>Medidas</label><input type="text" id="mp-med" placeholder="ej. 20 × 15 cm"></div>
+      </div>
+      <div class="fg"><label>Descripción del daño</label><textarea id="mp-desc" placeholder="Dónde está, qué material, por qué se necesita…"></textarea></div>
+      <div class="fg"><label>Foto del daño</label>
+        <div class="upzone" onclick="document.getElementById('mp-file').click()">
+          <input type="file" id="mp-file" accept="image/*" onchange="prevFile('mp-file','mp-prev')">
+          <img id="mp-prev" class="up-prev">
+          <p>Toca para subir una foto</p>
+        </div>
+      </div>
+    </div>
+    <div class="mfoot"><button class="btn bg_" onclick="closeModal('m-parche')">Cancelar</button><button class="btn bp" onclick="addParche()">Agregar</button></div>
+  </div>
+</div>
+<div class="moverlay" id="m-nuevo">
+  <div class="modal">
+    <h3>✏️ Nuevo diseño</h3>
+    <div style="display:flex;flex-direction:column;gap:.75rem">
+      <div class="g3">
+        <div class="fg"><label>Zona</label><select id="mn-zona"><option value="">…</option></select></div>
+        <div class="fg"><label>Material</label><select id="mn-mat"><option>Sintra</option><option>Vinil</option><option>Acrílico</option><option>Estireno</option><option>Otro</option></select></div>
+        <div class="fg"><label>Cantidad</label><input type="number" id="mn-qty" value="1" min="1"></div>
+      </div>
+      <div class="fg"><label>Medidas aprox.</label><input type="text" id="mn-med" placeholder="ej. 30 × 25 cm"></div>
+      <div class="fg"><label>¿Qué necesitas que diga o muestre?</label><textarea id="mn-desc" placeholder="Mensaje, propósito, detalles importantes…"></textarea></div>
+      <div class="fg"><label>Referencia (opcional)</label>
+        <div class="upzone" onclick="document.getElementById('mn-file').click()">
+          <input type="file" id="mn-file" accept="image/*" onchange="prevFile('mn-file','mn-prev')">
+          <img id="mn-prev" class="up-prev">
+          <p>Toca para subir referencia</p>
+        </div>
+      </div>
+    </div>
+    <div class="mfoot"><button class="btn bg_" onclick="closeModal('m-nuevo')">Cancelar</button><button class="btn bp" onclick="addNuevo()">Agregar</button></div>
+  </div>
+</div>
+
 <div id="toast" class="toast"></div>
 
 <script>
-// ══════════════════════════════════════
-// DATA
-// ══════════════════════════════════════
-const CATALOGO = {
-  "Taquilla": [
-    { nombre: "No somos pet friendly", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Por higiene y seguridad...", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Si no te entrego tu ticket...", material: "Sintra", medida: "15 x 8 cm" },
-    { nombre: "El tiempo ilimitado es durante su estancia...", material: "Sintra", medida: "30 x 25 cm" },
-    { nombre: "En este establecimiento no discriminamos", material: "Sintra", medida: "30 x 25 cm" },
-    { nombre: "Prohibido ingresar con alimentos y bebidas", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "100% libre de humo", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "No nos hacemos responsables por objetos perdidos", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Reglamento general del parque", material: "Sintra", medida: "60 x 90 cm" },
-    { nombre: "Longímetro (si mides menos de 85 cm...)", material: "MDF", medida: "A medida" },
-  ],
-  "Baños": [
-    { nombre: "Ayúdanos a mantener el baño limpio", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Depósita el papel en el bote de basura", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Aviso uso de cámara / área vigilada", material: "Vinil", medida: "15 x 10 cm" },
-  ],
-  "Comedero": [
-    { nombre: "Menú de alimentos", material: "Sintra", medida: "60 x 90 cm" },
-    { nombre: "Prohibido alimentos externos", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Precio por platillo", material: "Vinil", medida: "A medida" },
-  ],
-  "Oinkstore": [
-    { nombre: "Precios productos tienda", material: "Sintra", medida: "30 x 20 cm" },
-    { nombre: "No nos hacemos responsables por objetos", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Logotipo Oinkstore", material: "Acrílico", medida: "A medida" },
-  ],
-  "Estancia": [
-    { nombre: "Reglamento de estancia", material: "Sintra", medida: "60 x 90 cm" },
-    { nombre: "Capacidad máxima del área", material: "Sintra", medida: "30 x 20 cm" },
-  ],
-  "Candy Oink": [
-    { nombre: "Precios dulcería", material: "Sintra", medida: "30 x 20 cm" },
-    { nombre: "Sin cambios ni devoluciones", material: "Sintra", medida: "21 x 16 cm" },
-  ],
-  "Fiestas": [
-    { nombre: "Reglamento salón de fiestas", material: "Sintra", medida: "60 x 90 cm" },
-    { nombre: "Horario de uso del salón", material: "Sintra", medida: "30 x 20 cm" },
-  ],
-  "Arcade": [
-    { nombre: "Instrucciones de uso máquinas", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "No nos hacemos responsables", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Precio por token/crédito", material: "Sintra", medida: "15 x 10 cm" },
-  ],
-  "Zona de juego": [
-    { nombre: "Reglamento zona de juegos", material: "Sintra", medida: "60 x 90 cm" },
-    { nombre: "Estatura mínima requerida", material: "Sintra", medida: "A medida" },
-    { nombre: "Prohibido alimentos en la zona", material: "Sintra", medida: "21 x 16 cm" },
-    { nombre: "Capacidad máxima permitida", material: "Sintra", medida: "30 x 20 cm" },
-  ],
-  "Otro / Nueva zona": [
-    { nombre: "Artículo personalizado / nuevo diseño", material: "Otro", medida: "A definir" },
-  ],
-};
+// ══════════ DATA ══════════
+const ZONAS=['Taquilla','Baños','Comedero','Oinkstore','Estancia','Candy Oink','Fiestas','Arcade','Zona de juego'];
+const CAT=[
+  {id:1,zona:'Taquilla',nombre:'No somos pet friendly',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:2,zona:'Taquilla',nombre:'Por higiene y seguridad, no somos petfriendly',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:3,zona:'Taquilla',nombre:'Si no te entrego tu ticket notifica al gerente',mat:'Sintra',med:'15 × 8 cm',img:''},
+  {id:4,zona:'Taquilla',nombre:'El tiempo ilimitado es durante su estancia',mat:'Sintra',med:'30 × 25 cm',img:''},
+  {id:5,zona:'Taquilla',nombre:'En este establecimiento no discriminamos',mat:'Sintra',med:'30 × 25 cm',img:''},
+  {id:6,zona:'Taquilla',nombre:'Prohibido ingresar con alimentos y bebidas',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:7,zona:'Taquilla',nombre:'100% libre de humo',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:8,zona:'Taquilla',nombre:'No nos hacemos responsables por objetos perdidos',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:9,zona:'Taquilla',nombre:'Reglamento general del parque',mat:'Sintra',med:'60 × 90 cm',img:''},
+  {id:10,zona:'Taquilla',nombre:'Longímetro (si mides menos de 85 cm...)',mat:'MDF',med:'A medida',img:''},
+  {id:11,zona:'Baños',nombre:'Ayúdanos a mantener el baño limpio',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:12,zona:'Baños',nombre:'Deposita el papel en el bote de basura',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:13,zona:'Baños',nombre:'Área de cámaras / aviso de vigilancia',mat:'Vinil',med:'15 × 10 cm',img:''},
+  {id:14,zona:'Comedero',nombre:'Menú de alimentos',mat:'Sintra',med:'60 × 90 cm',img:''},
+  {id:15,zona:'Comedero',nombre:'Prohibido alimentos externos',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:16,zona:'Comedero',nombre:'Precio por platillo / producto',mat:'Vinil',med:'A medida',img:''},
+  {id:17,zona:'Oinkstore',nombre:'Precios productos tienda',mat:'Sintra',med:'30 × 20 cm',img:''},
+  {id:18,zona:'Oinkstore',nombre:'Sin cambios ni devoluciones',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:19,zona:'Estancia',nombre:'Reglamento de estancia',mat:'Sintra',med:'60 × 90 cm',img:''},
+  {id:20,zona:'Estancia',nombre:'Capacidad máxima del área',mat:'Sintra',med:'30 × 20 cm',img:''},
+  {id:21,zona:'Candy Oink',nombre:'Precios dulcería',mat:'Sintra',med:'30 × 20 cm',img:''},
+  {id:22,zona:'Candy Oink',nombre:'Sin cambios ni devoluciones',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:23,zona:'Fiestas',nombre:'Reglamento salón de fiestas',mat:'Sintra',med:'60 × 90 cm',img:''},
+  {id:24,zona:'Fiestas',nombre:'Horario de uso del salón',mat:'Sintra',med:'30 × 20 cm',img:''},
+  {id:25,zona:'Arcade',nombre:'Instrucciones de uso de máquinas',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:26,zona:'Arcade',nombre:'Precio por token / crédito',mat:'Sintra',med:'15 × 10 cm',img:''},
+  {id:27,zona:'Zona de juego',nombre:'Reglamento zona de juegos',mat:'Sintra',med:'60 × 90 cm',img:''},
+  {id:28,zona:'Zona de juego',nombre:'Estatura mínima requerida',mat:'Sintra',med:'A medida',img:''},
+  {id:29,zona:'Zona de juego',nombre:'Prohibido alimentos en la zona',mat:'Sintra',med:'21 × 16 cm',img:''},
+  {id:30,zona:'Zona de juego',nombre:'Capacidad máxima permitida',mat:'Sintra',med:'30 × 20 cm',img:''},
+];
+const MBADGE={Sintra:'bsintra',Vinil:'bvinil','Acrílico':'bacrilico',Coroplast:'bcoroplast',Estireno:'bestireno',MDF:'bmdf',Parche:'bparche',Otro:'botro'};
+const PASS='diseno2024'; // ← cambia aquí la contraseña
 
-let carrito = [];
-let solicitudes = [];
-let solicitudCounter = 1000;
+// ══════════ STATE ══════════
+let cart=[];
+let solicitudes=[];
+let folioCnt=1000;
+let cartOpen=false;
+let isDesigner=false;
+let editingFolio=null;
+let pendingNavPage='';
+let pendingNavBtn=null;
+let activeEst='';
+let activeMes='';
+let expandedSols=new Set();
+let panelMatFilter={};
 
-// ══════════════════════════════════════
-// NAVEGACIÓN
-// ══════════════════════════════════════
-function showPage(page, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  btn.classList.add('active');
-  if (page === 'panel') renderPanel();
-  if (page === 'hoja') actualizarSelectHoja();
+function save(){try{localStorage.setItem('oink3',JSON.stringify({solicitudes,folioCnt}));}catch(e){}}
+function load(){
+  try{
+    const d=localStorage.getItem('oink3');
+    if(d){const p=JSON.parse(d);solicitudes=p.solicitudes||[];folioCnt=p.folioCnt||1000;
+    const cut=Date.now()-6*30*24*60*60*1000;
+    solicitudes=solicitudes.filter(s=>new Date(s.fechaCreacion).getTime()>cut);}
+  }catch(e){}
 }
 
-// ══════════════════════════════════════
-// SOLICITUD
-// ══════════════════════════════════════
-function filtrarArticulos() {
-  const zona = document.getElementById('zona').value;
-  const sel = document.getElementById('articulo');
-  sel.innerHTML = '';
-  if (!zona || !CATALOGO[zona]) {
-    sel.innerHTML = '<option value="">Selecciona zona primero…</option>';
-    return;
+// ══════════ NAV ══════════
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  if(btn) btn.classList.add('on');
+  if(id==='materiales') initMateriales();
+  if(id==='panel'){activeEst='';activeMes='';renderPanel();}
+  if(id==='hoja') fillHojaSel();
+  if(id==='misol') renderMiSol();
+}
+
+// ══════════ LOGIN ══════════
+function requireLogin(page,btn){
+  if(isDesigner){goPage(page,btn);return;}
+  pendingNavPage=page;pendingNavBtn=btn;
+  document.getElementById('login-inp').value='';
+  document.getElementById('login-err').style.display='none';
+  document.getElementById('login-overlay').style.display='flex';
+  setTimeout(()=>document.getElementById('login-inp').focus(),100);
+}
+
+function tryLogin(){
+  const v=document.getElementById('login-inp').value;
+  if(v===PASS){
+    isDesigner=true;
+    document.getElementById('login-overlay').style.display='none';
+    document.getElementById('nt-panel').style.display='';
+    document.getElementById('nt-hoja').style.display='';
+    document.getElementById('lock-label').textContent='Cerrar sesión';
+    document.getElementById('lock-btn').style.background='var(--olight)';
+    document.getElementById('lock-btn').style.color='var(--o)';
+    document.getElementById('lock-btn').style.borderColor='rgba(238,71,35,.3)';
+    if(pendingNavPage) goPage(pendingNavPage,pendingNavBtn);
+    pendingNavPage='';pendingNavBtn=null;
+  } else {
+    document.getElementById('login-err').style.display='block';
+    document.getElementById('login-inp').select();
   }
-  sel.innerHTML = '<option value="">Selecciona artículo…</option>';
-  CATALOGO[zona].forEach((art, i) => {
-    const opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = art.nombre;
-    sel.appendChild(opt);
+}
+
+function cancelLogin(){document.getElementById('login-overlay').style.display='none';}
+
+function toggleDesigner(){
+  if(isDesigner){
+    isDesigner=false;
+    document.getElementById('nt-panel').style.display='none';
+    document.getElementById('nt-hoja').style.display='none';
+    document.getElementById('lock-label').textContent='Diseñadora';
+    document.getElementById('lock-btn').style.cssText='';
+    goPage('solicitud',document.getElementById('nt-sol'));
+    toast('Sesión cerrada');
+  } else {
+    requireLogin('panel',document.getElementById('nt-panel'));
+  }
+}
+
+// ══════════ INIT FORMULARIO ══════════
+function initForm(){
+  const zs=document.getElementById('f-zona');
+  ZONAS.forEach(z=>{const o=document.createElement('option');o.textContent=z;zs.appendChild(o);});
+  ['mp-zona','mn-zona'].forEach(id=>{
+    const s=document.getElementById(id);
+    ZONAS.forEach(z=>{const o=document.createElement('option');o.textContent=z;s.appendChild(o);});
   });
-  actualizarPreview();
 }
 
-function actualizarPreview() {
-  const zona = document.getElementById('zona').value;
-  const idx = document.getElementById('articulo').value;
-  const preview = document.getElementById('preview-articulo');
-  if (!zona || idx === '' || !CATALOGO[zona]) { preview.style.display = 'none'; return; }
-  const art = CATALOGO[zona][parseInt(idx)];
-  if (!art) { preview.style.display = 'none'; return; }
-  document.getElementById('preview-img').textContent = 'Imagen\n' + art.material;
-  document.getElementById('preview-nombre').textContent = art.nombre;
-  document.getElementById('preview-zona-label').textContent = zona + ' · ' + art.material;
-  document.getElementById('preview-medida-label').textContent = 'Medida: ' + art.medida;
-  document.getElementById('material').value = art.material;
-  if (art.medida !== 'A medida' && art.medida !== 'A definir') {
-    document.getElementById('medidas').value = art.medida;
-  }
-  preview.style.display = 'flex';
+function filtrarArts(){
+  const zona=document.getElementById('f-zona').value;
+  const sel=document.getElementById('f-art');
+  sel.innerHTML='<option value="">Selecciona artículo…</option>';
+  document.getElementById('art-preview').style.display='none';
+  document.getElementById('f-mat').value='';
+  if(!zona) return;
+  CAT.filter(a=>a.zona===zona).forEach(a=>{
+    const o=document.createElement('option');o.value=a.id;o.textContent=a.nombre;sel.appendChild(o);
+  });
 }
 
-function agregarArticulo() {
-  const zona = document.getElementById('zona').value;
-  const idx = document.getElementById('articulo').value;
-  const cantidad = parseInt(document.getElementById('cantidad').value) || 1;
-  const material = document.getElementById('material').value;
-  const motivo = document.getElementById('motivo').value;
-  const medidas = document.getElementById('medidas').value;
-  const obs = document.getElementById('observaciones').value;
+function autoFill(){
+  const id=parseInt(document.getElementById('f-art').value);
+  const art=CAT.find(a=>a.id===id);
+  const prev=document.getElementById('art-preview');
+  if(!art){prev.style.display='none';document.getElementById('f-mat').value='';return;}
+  document.getElementById('f-mat').value=art.mat;
+  if(art.med&&art.med!=='A medida') document.getElementById('f-medidas').value=art.med;
+  // preview
+  const imgEl=document.getElementById('prev-img');
+  if(art.img){imgEl.innerHTML=`<img src="${art.img}" alt="" style="width:100%;height:100%;object-fit:cover">`;}
+  else{imgEl.innerHTML=`<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;}
+  document.getElementById('prev-name').textContent=art.nombre;
+  document.getElementById('prev-info').textContent=`${art.zona} · ${art.mat} · ${art.med}`;
+  prev.style.display='block';
+}
 
-  if (!zona) { toast('Selecciona una zona'); return; }
-  if (idx === '') { toast('Selecciona un artículo'); return; }
-
-  const art = CATALOGO[zona][parseInt(idx)];
-  carrito.push({ zona, nombre: art.nombre, material, cantidad, motivo, medidas, obs, id: Date.now() });
-  renderCarrito();
-  // reset
-  document.getElementById('articulo').value = '';
-  document.getElementById('cantidad').value = 1;
-  document.getElementById('observaciones').value = '';
-  document.getElementById('medidas').value = '';
-  document.getElementById('preview-articulo').style.display = 'none';
+function addItem(){
+  const zona=document.getElementById('f-zona').value;
+  const artId=document.getElementById('f-art').value;
+  const mat=document.getElementById('f-mat').value;
+  const qty=parseInt(document.getElementById('f-qty').value)||1;
+  const motivo=document.getElementById('f-motivo').value;
+  const medidas=document.getElementById('f-medidas').value;
+  const obs=document.getElementById('f-obs').value;
+  if(!zona){toast('Selecciona una zona');return;}
+  if(!artId){toast('Selecciona un artículo');return;}
+  const art=CAT.find(a=>a.id===parseInt(artId));
+  cart.push({artId:art.id,nombre:art.nombre,zona,mat,med:medidas||art.med,qty,motivo,obs,tipo:'catalogo',imgData:art.img||'',checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
+  updateCartUI();renderSolPreview();renderCpList();
+  document.getElementById('f-art').value='';document.getElementById('f-qty').value=1;
+  document.getElementById('f-obs').value='';document.getElementById('f-medidas').value='';
+  document.getElementById('f-mat').value='';document.getElementById('art-preview').style.display='none';
   toast('Artículo agregado ✓');
 }
 
-function renderCarrito() {
-  const cont = document.getElementById('items-container');
-  const lista = document.getElementById('lista-articulos');
-  if (carrito.length === 0) { lista.style.display = 'none'; return; }
-  lista.style.display = 'block';
-
-  const motivoClase = (m) => {
-    if (m.includes('Roto')) return 'badge-motivo-roto';
-    if (m.includes('Despintado')) return 'badge-motivo-desp';
-    if (m.includes('Faltante')) return 'badge-motivo-falt';
-    if (m.includes('Actualización')) return 'badge-motivo-act';
-    return 'badge-motivo-otro';
-  };
-
-  cont.innerHTML = carrito.map((item, i) => `
+function renderSolPreview(){
+  const wrap=document.getElementById('sol-preview');
+  const cont=document.getElementById('sol-items');
+  const banner=document.getElementById('editing-banner');
+  if(banner) banner.style.display=editingFolio?'flex':'none';
+  if(!cart.length){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  cont.innerHTML=cart.map((it,i)=>`
     <div class="item-row">
+      <div class="ithumb">${it.imgData?`<img src="${it.imgData}" alt="">`:'<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'}</div>
       <div>
-        <div style="font-size:13.5px; font-weight:500;">${item.nombre}</div>
-        <div style="display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;">
-          <span class="item-badge badge-zone">${item.zona}</span>
-          <span class="item-badge ${motivoClase(item.motivo)}">${item.motivo}</span>
-          ${item.medidas ? `<span class="item-badge" style="background:var(--oink-lard);color:var(--oink-mid);">${item.medidas}</span>` : ''}
+        <div class="iname">${it.nombre}</div>
+        <div class="itags">
+          <span class="bd_ bz">${it.zona}</span>
+          <span class="bd_ ${MBADGE[it.mat]||'botro'}">${it.mat}</span>
+          ${it.med?`<span class="bd_ botro">${it.med}</span>`:''}
+          <span class="bd_ botro">${it.motivo}</span>
+          ${it.tipo!=='catalogo'?`<span class="bd_ bparche">${it.tipo==='parche'?'Parche':'Nuevo diseño'}</span>`:''}
         </div>
-        ${item.obs ? `<div style="font-size:12px;color:var(--oink-mid);margin-top:4px;">${item.obs}</div>` : ''}
+        ${it.obs?`<div class="iobs">↳ ${it.obs}</div>`:''}
+        <div class="iqty">
+          <button class="qbtn" onclick="chgQty(${i},-1)">−</button>
+          <span class="qnum">${it.qty}</span>
+          <button class="qbtn" onclick="chgQty(${i},1)">+</button>
+        </div>
       </div>
-      <div style="font-size:13px;color:var(--oink-mid);">${item.material}</div>
-      <div style="font-weight:500; min-width:28px; text-align:center;">${item.cantidad}</div>
-      <button onclick="eliminarItem(${i})" style="background:none;border:none;cursor:pointer;color:#ccc;padding:4px;" title="Eliminar">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-  `).join('');
+      <button style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;padding:4px;line-height:1;flex-shrink:0" onclick="rmItem(${i})">×</button>
+    </div>`).join('');
 }
 
-function eliminarItem(i) {
-  carrito.splice(i, 1);
-  renderCarrito();
-}
+function chgQty(i,d){cart[i].qty=Math.max(1,cart[i].qty+d);renderSolPreview();renderCpList();}
+function rmItem(i){cart.splice(i,1);updateCartUI();renderSolPreview();renderCpList();renderMatGrid();}
+function clearCart(){cart=[];editingFolio=null;updateCartUI();renderSolPreview();renderCpList();renderMatGrid();}
 
-function limpiarTodo() {
-  carrito = [];
-  renderCarrito();
-}
+function enviarSolicitud(){
+  if(!cart.length){toast('Agrega al menos un artículo');return;}
+  const now=new Date().toISOString();
+  const obs=document.getElementById('cp-obs')?.value||'';
 
-function enviarSolicitud() {
-  if (carrito.length === 0) { toast('No hay artículos'); return; }
-  const folio = 'OINK-' + (++solicitudCounter);
-  const fecha = new Date().toLocaleDateString('es-MX', { day:'2-digit', month:'short', year:'numeric' });
-  solicitudes.push({
-    folio, fecha, parque: 'Oink', items: [...carrito], status: 'pendiente', nota: ''
-  });
-  carrito = [];
-  renderCarrito();
-  toast('¡Solicitud ' + folio + ' enviada! La diseñadora recibirá aviso.');
-  setTimeout(() => {
-    document.querySelector('[onclick*="panel"]').click();
-  }, 1500);
-}
-
-// ══════════════════════════════════════
-// PANEL DISEÑADORA
-// ══════════════════════════════════════
-let panelFiltro = 'todas';
-
-function filtrarPanel(f, btn) {
-  panelFiltro = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderPanel();
-}
-
-function renderPanel() {
-  const lista = document.getElementById('panel-lista');
-  let filtered = solicitudes;
-  if (panelFiltro !== 'todas') filtered = solicitudes.filter(s => s.status === panelFiltro);
-
-  if (filtered.length === 0) {
-    lista.innerHTML = `<div class="empty">
-      <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
-      <p>No hay solicitudes ${panelFiltro !== 'todas' ? 'con este estado' : 'aún'}.</p>
-    </div>`;
-    return;
+  if(editingFolio){
+    // actualizar solicitud existente
+    const sol=solicitudes.find(s=>s.folio===editingFolio);
+    if(sol){
+      sol.items=cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''}));
+      sol.fechaMod=now;sol.obs=obs;
+      save();
+      toast('Solicitud '+editingFolio+' actualizada ✓');
+    }
+    editingFolio=null;
+  } else {
+    const folio='OINK-'+(++folioCnt);
+    solicitudes.push({folio,fechaCreacion:now,fechaEnvio:now,fechaMod:now,obs,items:cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''})),status:'recibida',notaGlobal:''});
+    save();
+    toast('Solicitud '+folio+' enviada ✓');
   }
 
-  lista.innerHTML = filtered.map((sol, i) => {
-    const realIdx = solicitudes.indexOf(sol);
-    const statusLabel = { pendiente: 'Pendiente', aprobado: 'Aprobado', rechazado: 'Rechazado', enviado: 'Enviado' };
-    return `
-    <div class="solicitud-card">
-      <div class="solicitud-header">
-        <div>
-          <span style="font-weight:600;font-size:14px;">${sol.folio}</span>
-          <span style="font-size:12px;color:var(--oink-mid);margin-left:10px;">${sol.fecha} · ${sol.items.length} artículo${sol.items.length !== 1 ? 's' : ''}</span>
-        </div>
-        <span class="status-pill status-${sol.status}">${statusLabel[sol.status]}</span>
+  cart=[];cartOpen=false;editingFolio=null;
+  document.getElementById('cpanel').classList.remove('on');
+  if(document.getElementById('cp-obs')) document.getElementById('cp-obs').value='';
+  updateCartUI();renderSolPreview();renderCpList();renderMatGrid();
+  setTimeout(()=>goPage('misol',document.getElementById('nt-misol')),800);
+}
+
+// ══════════ CATÁLOGO ══════════
+let activeZone='Todas';
+let catInit=false;
+function initMateriales(){
+  if(catInit) return; catInit=true;
+  const zp=document.getElementById('zpills');
+  ['Todas',...ZONAS].forEach(z=>{
+    const b=document.createElement('button');b.className='zp'+(z==='Todas'?' on':'');b.textContent=z;
+    b.onclick=()=>{activeZone=z;document.querySelectorAll('.zp').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderMatGrid();};
+    zp.appendChild(b);
+  });
+  renderMatGrid();
+}
+
+function renderMatGrid(){
+  const items=activeZone==='Todas'?CAT:CAT.filter(a=>a.zona===activeZone);
+  document.getElementById('mgrid').innerHTML=items.map(art=>{
+    const inC=cart.find(c=>c.artId===art.id);
+    return `<div class="mcard${inC?' incart':''}">
+      ${inC?`<div class="incart-n">${inC.qty}</div>`:''}
+      <div class="mimg">${art.img?`<img src="${art.img}" alt="">`:'<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.18"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'}</div>
+      <div class="minfo">
+        <div class="mname">${art.nombre}</div>
+        <div class="mmeta"><span class="bd_ bz">${art.zona}</span><span class="bd_ ${MBADGE[art.mat]||'botro'}">${art.mat}</span></div>
+        <div class="mmed">${art.med}</div>
+        <button class="madd${inC?' on':''}" onclick="toggleCartItem(${art.id})">${inC?'✓ En solicitud':'+ Agregar'}</button>
       </div>
-      <div class="solicitud-body">
-        <table class="sol-items-table">
-          <thead><tr>
-            <th>Artículo</th><th>Zona</th><th>Material</th><th>Cant.</th><th>Motivo</th><th>Medidas</th>
-          </tr></thead>
-          <tbody>
-            ${sol.items.map(it => `
-              <tr>
-                <td style="font-weight:500;">${it.nombre}</td>
-                <td><span class="item-badge badge-zone" style="font-size:11px;">${it.zona}</span></td>
-                <td style="color:var(--oink-mid);">${it.material}</td>
-                <td style="text-align:center;font-weight:500;">${it.cantidad}</td>
-                <td style="color:var(--oink-mid);font-size:12px;">${it.motivo}</td>
-                <td style="color:var(--oink-mid);font-size:12px;">${it.medidas || '—'}</td>
-              </tr>
-              ${it.obs ? `<tr><td colspan="6" style="font-size:12px;color:var(--oink-mid);padding-top:0;padding-bottom:8px;">↳ ${it.obs}</td></tr>` : ''}
-            `).join('')}
-          </tbody>
-        </table>
-        ${sol.nota ? `<div style="margin-top:10px;font-size:12px;color:var(--oink-mid);background:var(--oink-lard);padding:8px 10px;border-radius:var(--radius-sm);">Nota: ${sol.nota}</div>` : ''}
-      </div>
-      ${sol.status === 'pendiente' ? `
-      <div class="action-row">
-        <input type="text" id="nota-${realIdx}" placeholder="Nota opcional (si rechazas, explica por qué)" style="flex:1; font-size:13px; padding:8px 10px;">
-        <button class="btn btn-ghost" onclick="cambiarStatus(${realIdx}, 'rechazado')">Rechazar</button>
-        <button class="btn btn-primary" onclick="cambiarStatus(${realIdx}, 'aprobado')">Aprobar</button>
-      </div>` : ''}
-      ${sol.status === 'aprobado' ? `
-      <div class="action-row">
-        <button class="btn btn-secondary" onclick="cambiarStatus(${realIdx}, 'enviado')">
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
-          Marcar como enviado
-        </button>
-      </div>` : ''}
     </div>`;
   }).join('');
 }
 
-function cambiarStatus(idx, status) {
-  const notaEl = document.getElementById('nota-' + idx);
-  if (notaEl) solicitudes[idx].nota = notaEl.value;
-  solicitudes[idx].status = status;
-  renderPanel();
-  actualizarSelectHoja();
-  toast(status === 'aprobado' ? 'Solicitud aprobada ✓' : status === 'rechazado' ? 'Solicitud rechazada' : 'Marcada como enviada ✓');
+function toggleCartItem(artId){
+  const art=CAT.find(a=>a.id===artId);
+  const idx=cart.findIndex(c=>c.artId===artId);
+  if(idx>=0){cart.splice(idx,1);toast('Quitado');}
+  else{
+    cart.push({artId:art.id,nombre:art.nombre,zona:art.zona,mat:art.mat,med:art.med,qty:1,motivo:'Faltante',obs:'',tipo:'catalogo',imgData:art.img||'',checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
+    toast('Agregado ✓');if(!cartOpen)toggleCpanel();
+  }
+  updateCartUI();renderMatGrid();renderSolPreview();renderCpList();
 }
 
-// ══════════════════════════════════════
-// HOJA DE ENTREGA
-// ══════════════════════════════════════
-function actualizarSelectHoja() {
-  const sel = document.getElementById('hoja-solicitud-sel');
-  const aprobadas = solicitudes.filter(s => s.status === 'aprobado' || s.status === 'enviado');
-  sel.innerHTML = '<option value="">Selecciona solicitud aprobada…</option>';
-  aprobadas.forEach(s => {
-    const opt = document.createElement('option');
-    opt.value = s.folio;
-    opt.textContent = s.folio + ' — ' + s.fecha + ' (' + s.items.length + ' artículos)';
-    sel.appendChild(opt);
-  });
+function toggleCpanel(){cartOpen=!cartOpen;document.getElementById('cpanel').classList.toggle('on',cartOpen);}
+
+function updateCartUI(){
+  const n=cart.length;
+  const cb=document.getElementById('cb');const fab=document.getElementById('fab');const fn=document.getElementById('fab-n');
+  cb.textContent=n;cb.style.display=n?'':'none';
+  fab.style.display=n?'block':'none';if(fn)fn.textContent=n;
 }
 
-function generarHoja() {
-  const folio = document.getElementById('hoja-solicitud-sel').value;
-  if (!folio) { toast('Selecciona una solicitud'); return; }
-  const sol = solicitudes.find(s => s.folio === folio);
-  if (!sol) return;
-
-  const total = sol.items.reduce((acc, it) => acc + it.cantidad, 0);
-  const fecha = new Date().toLocaleDateString('es-MX', { day:'2-digit', month:'long', year:'numeric' });
-
-  const filas = sol.items.map((it, i) => `
-    <tr>
-      <td style="text-align:center;">${i+1}</td>
-      <td>${it.nombre}</td>
-      <td>${it.zona}</td>
-      <td>${it.material}</td>
-      <td>${it.medidas || '—'}</td>
-      <td style="text-align:center; font-weight:500;">${it.cantidad}</td>
-      <td></td>
-    </tr>
-  `).join('');
-
-  document.getElementById('hoja-content').innerHTML = `
-    <div class="hoja-print-area">
-      <div class="hoja-header">
-        <div class="hoja-logo-block">
-          <div class="brand">🐷 Oink</div>
-          <div class="sub">Hoja de entrega de material</div>
-        </div>
-        <div class="hoja-meta">
-          <div><strong>Folio:</strong> ${sol.folio}</div>
-          <div><strong>Fecha:</strong> ${fecha}</div>
-          <div><strong>Parque:</strong> Oink</div>
-          <div style="margin-top:6px;"><strong>Total piezas:</strong> ${total}</div>
-        </div>
+function renderCpList(){
+  const cont=document.getElementById('cp-items-list');
+  if(!cart.length){cont.innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted);font-size:13px">Sin artículos.</div>';return;}
+  cont.innerHTML=cart.map((it,i)=>`
+    <div class="cp-item">
+      <div class="cpi-name">${it.nombre}</div>
+      <div class="cpi-meta"><span class="bd_ bz" style="font-size:10px">${it.zona}</span><span class="bd_ ${MBADGE[it.mat]||'botro'}" style="font-size:10px">${it.mat}</span></div>
+      <div class="cpi-qty">
+        <button class="qbtn" style="width:22px;height:22px;font-size:13px" onclick="chgQty(${i},-1)">−</button>
+        <span class="qnum" style="font-size:12px">${it.qty}</span>
+        <button class="qbtn" style="width:22px;height:22px;font-size:13px" onclick="chgQty(${i},1)">+</button>
+        <button class="cpi-rm" onclick="rmItem(${i})">×</button>
       </div>
+    </div>`).join('');
+}
 
-      <table class="hoja-table">
-        <thead>
-          <tr>
-            <th style="width:36px;">#</th>
-            <th>Artículo</th>
-            <th>Zona</th>
-            <th>Material</th>
-            <th>Medidas</th>
-            <th style="width:48px; text-align:center;">Cant.</th>
-            <th style="width:80px;">Recibido ✓</th>
-          </tr>
-        </thead>
-        <tbody>${filas}</tbody>
-      </table>
+// ══════════ MODALES ══════════
+function openModal(id){document.getElementById(id).classList.add('on');}
+function closeModal(id){document.getElementById(id).classList.remove('on');}
+document.querySelectorAll('.moverlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on');}));
+function prevFile(inp,prev){
+  const f=document.getElementById(inp).files[0];const p=document.getElementById(prev);
+  if(!f){p.style.display='none';return;}
+  const r=new FileReader();r.onload=e=>{p.src=e.target.result;p.style.display='block';};r.readAsDataURL(f);
+}
+async function getImg(inp){
+  const f=document.getElementById(inp).files[0];if(!f)return'';
+  return new Promise(res=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.readAsDataURL(f);});
+}
+async function addParche(){
+  const zona=document.getElementById('mp-zona').value;const desc=document.getElementById('mp-desc').value;
+  if(!zona||!desc){toast('Completa zona y descripción');return;}
+  const imgData=await getImg('mp-file');
+  cart.push({artId:null,nombre:'Parche de vinil',zona,mat:'Parche',med:document.getElementById('mp-med').value||'A definir',qty:1,motivo:'Roto/Dañado',obs:desc,tipo:'parche',imgData,checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
+  updateCartUI();renderSolPreview();renderCpList();closeModal('m-parche');toast('Parche agregado ✓');
+}
+async function addNuevo(){
+  const zona=document.getElementById('mn-zona').value;const desc=document.getElementById('mn-desc').value;
+  if(!zona||!desc){toast('Completa zona y descripción');return;}
+  const imgData=await getImg('mn-file');
+  cart.push({artId:null,nombre:'Nuevo diseño',zona,mat:document.getElementById('mn-mat').value,med:document.getElementById('mn-med').value||'A definir',qty:parseInt(document.getElementById('mn-qty').value)||1,motivo:'Nuevo diseño',obs:desc,tipo:'nuevo',imgData,checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
+  updateCartUI();renderSolPreview();renderCpList();closeModal('m-nuevo');toast('Diseño agregado ✓');
+}
 
-      <div style="font-size:12px; color:var(--oink-mid); margin-bottom:3rem;">
-        Se envía el material descrito arriba para el parque <strong>Oink</strong>.<br>
-        Favor de revisar piezas al recibir y firmar de conformidad.
-      </div>
-
-      <div class="firma-row">
-        <div class="firma-block">
-          <div class="firma-line"></div>
-          <div class="firma-label">Diseño / Envío</div>
-          <div style="font-size:10px; color:var(--oink-mid); margin-top:2px;">Nombre y firma</div>
+// ══════════ MI SOLICITUD ══════════
+function renderMiSol(){
+  const cont=document.getElementById('misol-content');
+  // ultima solicitud de este "usuario" = la más reciente
+  const sol=solicitudes.length?[...solicitudes].sort((a,b)=>new Date(b.fechaCreacion)-new Date(a.fechaCreacion))[0]:null;
+  if(!sol){
+    cont.innerHTML='<div class="empty"><strong>Sin solicitudes</strong><p>Aún no has enviado ninguna solicitud.</p></div>';return;
+  }
+  const canEdit=sol.status==='recibida';
+  const sLabel={recibida:'Recibida — en espera de revisión',proceso:'En proceso — la diseñadora está trabajando en ello',enviada:'Enviada — el material está en camino',rechazada:'Rechazada — revisa la nota'};
+  const fc=fmtDate(sol.fechaCreacion);
+  const fm=fmtDate(sol.fechaMod);
+  cont.innerHTML=`
+    <div class="card" style="margin-bottom:1rem">
+      <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+        <div>
+          <div style="font-size:15px;font-weight:600">${sol.folio}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px"><span class="sp s-${sol.status}"><span class="dot"></span>${sLabel[sol.status]}</span></div>
         </div>
-        <div class="firma-block">
-          <div class="firma-line"></div>
-          <div class="firma-label">Parque Oink — Recibido</div>
-          <div style="font-size:10px; color:var(--oink-mid); margin-top:2px;">Nombre, firma y sello</div>
-        </div>
+        ${canEdit?`<button class="btn bwarn bsm" onclick="editarSol('${sol.folio}')">✎ Editar solicitud</button>`:''}
       </div>
+      <div style="padding:1rem 1.25rem;display:flex;gap:2rem;flex-wrap:wrap;font-size:12.5px">
+        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Enviada el</div>${fc}</div>
+        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px">Última modificación</div><span style="${sol.fechaMod!==sol.fechaCreacion?'color:var(--o);font-weight:500':''}">${fm}</span></div>
+      </div>
+      ${sol.notaGlobal?`<div style="padding:.875rem 1.25rem;border-top:1px solid var(--bd);background:#fff7ed;font-size:13px;color:#92400e"><strong>Nota de diseñadora:</strong> ${sol.notaGlobal}</div>`:''}
     </div>
-  `;
-  toast('Hoja generada — usa "Imprimir / PDF" para exportarla');
+    <div style="font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.625rem">Artículos (${sol.items.length})</div>
+    <div class="card" style="padding:0">
+      ${sol.items.map(it=>`
+        <div class="item-row" style="padding:.875rem 1.25rem">
+          <div class="ithumb">${it.imgData?`<img src="${it.imgData}" alt="">`:'<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'}</div>
+          <div>
+            <div class="iname">${it.nombre}</div>
+            <div class="itags">
+              <span class="bd_ bz">${it.zona}</span>
+              <span class="bd_ ${MBADGE[it.mat]||'botro'}">${it.mat}</span>
+              ${it.med?`<span class="bd_ botro">${it.med}</span>`:''}
+              <span class="bd_ botro">×${it.qty}</span>
+            </div>
+            ${it.obs?`<div class="iobs">↳ ${it.obs}</div>`:''}
+          </div>
+          <span class="sp s-${it.status==='no-enviar'?'rechazada':'enviada'}" style="font-size:11px;align-self:flex-start">${it.status==='no-enviar'?'No se enviará':'Ok'}</span>
+        </div>`).join('')}
+    </div>`;
 }
 
-// ══════════════════════════════════════
-// UTILS
-// ══════════════════════════════════════
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+function editarSol(folio){
+  const sol=solicitudes.find(s=>s.folio===folio);
+  if(!sol||sol.status!=='recibida'){toast('Solo puedes editar solicitudes recibidas');return;}
+  editingFolio=folio;
+  cart=sol.items.map(it=>({...it,checks:{...it.checks}}));
+  updateCartUI();renderSolPreview();renderMatGrid();renderCpList();
+  goPage('solicitud',document.getElementById('nt-sol'));
+  toast('Solicitud cargada — edita y vuelve a enviar');
 }
+
+// ══════════ PANEL ══════════
+function setEst(v,btn){
+  activeEst=v;activeMes='';
+  document.querySelectorAll('#est-filter .mp').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  renderPanel();
+}
+
+function renderPanel(){
+  let filtered=solicitudes.filter(s=>!activeEst||s.status===activeEst);
+  const mesSet=new Set(filtered.map(s=>s.fechaCreacion.slice(0,7)));
+  const meses=[...mesSet].sort().reverse();
+  const mp=document.getElementById('mes-pills');mp.innerHTML='';
+  if(!meses.length){document.getElementById('panel-list').innerHTML='<div class="empty"><strong>Sin solicitudes</strong><p>No hay solicitudes con este filtro.</p></div>';return;}
+  if(!activeMes||!meses.includes(activeMes))activeMes=meses[0];
+  meses.forEach(m=>{
+    const b=document.createElement('button');b.className='mp'+(m===activeMes?' on':'');
+    const [y,mo]=m.split('-');b.textContent=new Date(y,mo-1).toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+    b.onclick=()=>{activeMes=m;document.querySelectorAll('#mes-pills .mp').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderSolList();};
+    mp.appendChild(b);
+  });
+  renderSolList();
+}
+
+function renderSolList(){
+  const filtered=[...solicitudes].filter(s=>s.fechaCreacion.startsWith(activeMes)&&(!activeEst||s.status===activeEst)).reverse();
+  const list=document.getElementById('panel-list');
+  if(!filtered.length){list.innerHTML='<div class="empty"><strong>Sin solicitudes</strong><p>No hay solicitudes este mes.</p></div>';return;}
+  const sLabel={recibida:'Recibida',proceso:'En proceso',enviada:'Enviada',rechazada:'Rechazada'};
+
+  list.innerHTML=filtered.map(sol=>{
+    const sidx=solicitudes.indexOf(sol);
+    const isOpen=expandedSols.has(sol.folio);
+    const matF=panelMatFilter[sol.folio]||'';
+    const mats=[...new Set(sol.items.map(it=>it.mat))];
+    const items=matF?sol.items.filter(it=>it.mat===matF):sol.items;
+    const fc=fmtDate(sol.fechaCreacion);const fm=fmtDate(sol.fechaMod);
+
+    return `<div class="sol-card">
+      <div class="sol-head" onclick="toggleSol('${sol.folio}')">
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transition:.2s;transform:rotate(${isOpen?90:0}deg);color:var(--muted);flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
+          <div>
+            <div class="sol-folio">${sol.folio} <span style="font-size:11.5px;font-weight:400;color:var(--muted)">${sol.items.length} art.</span></div>
+            <div class="sol-dates">Recibida: ${fc}${sol.fechaMod!==sol.fechaCreacion?` · <span style="color:var(--o)">Modif: ${fm}</span>`:''}</div>
+          </div>
+        </div>
+        <span class="sp s-${sol.status}"><span class="dot"></span>${sLabel[sol.status]}</span>
+      </div>
+      <div class="sol-body${isOpen?' on':''}">
+        <!-- status selector -->
+        <div class="status-sel-wrap">
+          <span style="font-size:12px;font-weight:600;color:var(--muted)">Estado:</span>
+          <select class="status-sel" onchange="cambiarStatus('${sol.folio}',this.value)" onclick="event.stopPropagation()">
+            <option value="recibida"${sol.status==='recibida'?' selected':''}>Recibida</option>
+            <option value="proceso"${sol.status==='proceso'?' selected':''}>En proceso</option>
+            <option value="enviada"${sol.status==='enviada'?' selected':''}>Enviada</option>
+            <option value="rechazada"${sol.status==='rechazada'?' selected':''}>Rechazada</option>
+          </select>
+          ${sol.status==='rechazada'?`<input type="text" value="${sol.notaGlobal||''}" placeholder="Motivo de rechazo…" style="flex:1;padding:6px 10px;border:1px solid var(--bd2);border-radius:var(--rsm);font-size:12.5px" oninput="setSolNota('${sol.folio}',this.value)" onclick="event.stopPropagation()">`:''}
+        </div>
+        <!-- filtro material -->
+        <div class="mat-toolbar">
+          <span style="font-size:11px;font-weight:600;color:var(--muted)">Material:</span>
+          <button class="mfp${!matF?' on':''}" onclick="setMatF('${sol.folio}','')">Todos</button>
+          ${mats.map(m=>`<button class="mfp${matF===m?' on':''}" onclick="setMatF('${sol.folio}','${m}')">${m}</button>`).join('')}
+          ${matF?`<button class="btn bsuccess bxs" onclick="marcarTodos('${sol.folio}','${matF}','imprenta')">📄 Todos ${matF} a imprenta</button><button class="btn bsuccess bxs" onclick="marcarTodos('${sol.folio}','${matF}','enviado')">✓ Marcar todos ${matF} enviados</button>`:
+          `<button class="btn bsuccess bxs" onclick="marcarTodosImprenta('${sol.folio}')">📄 Todos a imprenta</button>`}
+        </div>
+        <!-- artículos -->
+        ${items.map(it=>{
+          const gi=sol.items.indexOf(it);
+          return `<div class="art-row-p${it.status==='no-enviar'?' is-no':''}">
+            <div class="athumb">${it.imgData?`<img src="${it.imgData}" alt="">`:'<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'}</div>
+            <div>
+              <div class="aname">${it.nombre}</div>
+              <div class="atags">
+                <span class="bd_ bz">${it.zona}</span>
+                <span class="bd_ ${MBADGE[it.mat]||'botro'}">${it.mat}</span>
+                ${it.med?`<span class="bd_ botro">${it.med}</span>`:''}
+                <span class="bd_ botro">×${it.qty}</span>
+                <span class="bd_ botro" style="background:#fff7ed;color:#92400e">${it.motivo}</span>
+              </div>
+              ${it.obs?`<div class="aobs">↳ ${it.obs}</div>`:''}
+              <textarea class="anota" placeholder="Nota interna…" oninput="setItemField('${sol.folio}',${gi},'nota',this.value)">${it.nota||''}</textarea>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+              <div class="pchecks">
+                <label class="pcrow"><input type="checkbox" ${it.checks.illustrator?'checked':''} onchange="toggleCheck('${sol.folio}',${gi},'illustrator',this.checked)"><span>En Illustrator</span></label>
+                <label class="pcrow"><input type="checkbox" ${it.checks.imprenta?'checked':''} onchange="toggleCheck('${sol.folio}',${gi},'imprenta',this.checked)"><span>En imprenta</span></label>
+                <label class="pcrow"><input type="checkbox" ${it.checks.enviado?'checked':''} onchange="toggleCheck('${sol.folio}',${gi},'enviado',this.checked)"><span>Enviado</span></label>
+              </div>
+              <div class="artbtns">
+                ${it.status==='ok'
+                  ?`<button class="btn bsuccess bxs" onclick="setItemSt('${sol.folio}',${gi},'ok')">✓ Ok</button>
+                     <button class="btn bdanger bxs" onclick="setItemSt('${sol.folio}',${gi},'no-enviar')">✕ No enviar</button>`
+                  :`<span class="sp s-${it.status==='no-enviar'?'rechazada':'enviada'}" style="font-size:11px">${it.status==='no-enviar'?'No se envía':'Ok'}</span>
+                    <button class="btn bg_ bxs" onclick="setItemSt('${sol.folio}',${gi},'ok')">↩</button>`}
+              </div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleSol(folio){
+  if(expandedSols.has(folio))expandedSols.delete(folio);else expandedSols.add(folio);
+  renderSolList();
+}
+function cambiarStatus(folio,status){
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  sol.status=status;sol.fechaMod=new Date().toISOString();save();
+  fillHojaSel();renderSolList();expandedSols.add(folio);
+  toast({recibida:'Marcada como recibida',proceso:'En proceso ✓',enviada:'Marcada como enviada ✓',rechazada:'Solicitud rechazada'}[status]||'');
+}
+function setSolNota(folio,val){
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  sol.notaGlobal=val;sol.fechaMod=new Date().toISOString();save();
+}
+function setMatF(folio,mat){panelMatFilter[folio]=mat;expandedSols.add(folio);renderSolList();}
+function marcarTodos(folio,mat,key){
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  sol.items.filter(it=>it.mat===mat).forEach(it=>it.checks[key]=true);
+  sol.fechaMod=new Date().toISOString();save();renderSolList();expandedSols.add(folio);
+  toast('Todos los '+mat+' marcados — '+(key==='enviado'?'enviados ✓':'en imprenta ✓'));
+}
+function marcarTodosImprenta(folio){
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  sol.items.forEach(it=>it.checks.imprenta=true);
+  sol.fechaMod=new Date().toISOString();save();renderSolList();expandedSols.add(folio);
+  toast('Todos los artículos marcados en imprenta ✓');
+}
+function setItemField(folio,idx,field,val){
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  sol.items[idx][field]=val;sol.fechaMod=new Date().toISOString();save();
+}
+function toggleCheck(folio,idx,key,val){
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  sol.items[idx].checks[key]=val;sol.fechaMod=new Date().toISOString();save();
+  toast(val?{illustrator:'En Illustrator ✓',imprenta:'En imprenta ✓',enviado:'Enviado ✓'}[key]:'Desmarcado');
+}
+function setItemSt(folio,idx,st){
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  sol.items[idx].status=st;sol.fechaMod=new Date().toISOString();save();
+  renderSolList();expandedSols.add(folio);
+  toast(st==='no-enviar'?'No se enviará':'Artículo ok ✓');
+}
+
+// ══════════ HOJA ══════════
+function fillHojaSel(){
+  const sel=document.getElementById('h-sel');
+  const ok=solicitudes.filter(s=>s.status==='proceso'||s.status==='enviada');
+  sel.innerHTML='<option value="">Selecciona…</option>';
+  ok.forEach(s=>{const o=document.createElement('option');o.value=s.folio;o.textContent=`${s.folio} — ${fmtDate(s.fechaCreacion)} (${s.items.length} art.)`;sel.appendChild(o);});
+}
+function genHoja(){
+  const folio=document.getElementById('h-sel').value;if(!folio){toast('Selecciona una solicitud');return;}
+  const sol=solicitudes.find(s=>s.folio===folio);if(!sol)return;
+  const fecha=new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'});
+  const totalEnv=sol.items.filter(it=>it.status!=='no-enviar').reduce((a,it)=>a+it.qty,0);
+  const noN=sol.items.filter(it=>it.status==='no-enviar').length;
+  const rows=sol.items.map((it,i)=>`
+    <tr class="${it.status==='no-enviar'?'noenv':''}">
+      <td style="text-align:center">${i+1}</td>
+      <td>${it.nombre}${it.obs?`<br><span style="font-size:10px;color:#888">${it.obs}</span>`:''}</td>
+      <td>${it.zona}</td><td>${it.mat}</td><td>${it.med||'—'}</td>
+      <td style="text-align:center;font-weight:500">${it.qty}</td>
+      <td style="text-align:center">${it.status==='no-enviar'?'<span style="color:#dc2626;font-size:11px;font-weight:600">No se envía</span>':'<span style="color:#16a34a">✓</span>'}</td>
+      <td></td>
+    </tr>`).join('');
+  document.getElementById('hoja-out').innerHTML=`
+    <div class="hoja">
+      <div class="hoja-top">
+        <div><div class="hbrand">🐷 Oink<small>Hoja de entrega de material</small></div></div>
+        <div class="hmeta">
+          <div><strong>Folio:</strong> ${sol.folio}</div>
+          <div><strong>Hoja:</strong> HE-${Date.now().toString().slice(-6)}</div>
+          <div><strong>Fecha emisión:</strong> ${fecha}</div>
+          <div><strong>Piezas a enviar:</strong> ${totalEnv}${noN?` <span style="color:#dc2626">(${noN} excluida${noN>1?'s':''})</span>`:''}</div>
+        </div>
+      </div>
+      <table class="htable">
+        <thead><tr><th style="width:30px">#</th><th>Artículo</th><th>Zona</th><th>Material</th><th>Medidas</th><th style="width:42px;text-align:center">Cant.</th><th style="width:80px;text-align:center">Estatus</th><th style="width:70px">Recibido ✓</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      ${sol.notaGlobal?`<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:10px 14px;font-size:12px;color:#92400e;margin-bottom:1.5rem"><strong>Nota:</strong> ${sol.notaGlobal}</div>`:''}
+      <div style="font-size:12px;color:var(--muted);margin-bottom:2rem">Se entrega el material descrito. Artículos tachados no se incluyen en este envío.<br>Revisar piezas al recibir. Se imprimen <strong>dos copias</strong>; devolver una firmada.</div>
+      <div class="firma-grid">
+        <div class="firma-box"><div class="fline"></div><div class="fname">Diseño y producción — Oink</div><div class="fsub">Nombre, firma y fecha</div></div>
+        <div class="firma-box"><div class="fline"></div><div class="fname">Parque Oink — Recibido</div><div class="fsub">Nombre, firma, sello y fecha</div></div>
+      </div>
+    </div>`;
+  toast('Hoja generada ✓');
+}
+
+// ══════════ UTILS ══════════
+function fmtDate(iso){return new Date(iso).toLocaleString('es-MX',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2400);}
+
+// INIT
+load();initForm();updateCartUI();
+
+// Nav listeners (después de que el JS cargó)
+document.getElementById('nt-sol').addEventListener('click',function(){goPage('solicitud',this);});
+document.getElementById('nt-mat').addEventListener('click',function(){goPage('materiales',this);});
+document.getElementById('nt-misol').addEventListener('click',function(){goPage('misol',this);});
+document.getElementById('nt-panel').addEventListener('click',function(){requireLogin('panel',this);});
+document.getElementById('nt-hoja').addEventListener('click',function(){requireLogin('hoja',this);});
+document.getElementById('lock-btn').addEventListener('click',toggleDesigner);
+document.getElementById('cancel-edit-btn').addEventListener('click',clearCart);
+document.getElementById('login-inp').addEventListener('keydown',function(e){if(e.key==='Enter')tryLogin();});
 </script>
 </body>
 </html>
