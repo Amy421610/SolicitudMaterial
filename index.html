@@ -783,8 +783,8 @@ function renderSolPreview(){
 }
 
 function chgQty(i,d){cart[i].qty=Math.max(1,cart[i].qty+d);renderSolPreview();renderCpList();}
-function rmItem(i){cart.splice(i,1);updateCartUI();renderSolPreview();renderCpList();renderMatGrid();}
-function clearCart(){cart=[];editingFolio=null;updateCartUI();renderSolPreview();renderCpList();renderMatGrid();}
+function rmItem(i){cart.splice(i,1);updateCartUI();renderSolPreview();renderCpList();}
+function clearCart(){cart=[];editingFolio=null;updateCartUI();renderSolPreview();renderCpList();}
 
 function enviarSolicitud(){
   if(!cart.length){toast('Agrega al menos un artículo');return;}
@@ -812,51 +812,10 @@ function enviarSolicitud(){
   cart=[];cartOpen=false;editingFolio=null;
   document.getElementById('cpanel').classList.remove('on');
   if(document.getElementById('cp-obs')) document.getElementById('cp-obs').value='';
-  updateCartUI();renderSolPreview();renderCpList();renderMatGrid();
+  updateCartUI();renderSolPreview();renderCpList();
   setTimeout(()=>goPage('misol',document.getElementById('nt-misol')),800);
 }
 
-// ══════════ CATÁLOGO ══════════
-let activeZone='Todas';
-let catInit=false;
-function initMateriales(){
-  if(catInit) return; catInit=true;
-  const zp=document.getElementById('zpills');
-  ['Todas',...ZONAS].forEach(z=>{
-    const b=document.createElement('button');b.className='zp'+(z==='Todas'?' on':'');b.textContent=z;
-    b.onclick=()=>{activeZone=z;document.querySelectorAll('.zp').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderMatGrid();};
-    zp.appendChild(b);
-  });
-  renderMatGrid();
-}
-
-function renderMatGrid(){
-  const items=activeZone==='Todas'?CAT:CAT.filter(a=>a.zona===activeZone);
-  document.getElementById('mgrid').innerHTML=items.map(art=>{
-    const inC=cart.find(c=>c.artId===art.id);
-    return `<div class="mcard${inC?' incart':''}">
-      ${inC?`<div class="incart-n">${inC.qty}</div>`:''}
-      <div class="mimg">${art.img?`<img src="${art.img}" alt="">`:'<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.18"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'}</div>
-      <div class="minfo">
-        <div class="mname">${art.nombre}</div>
-        <div class="mmeta"><span class="bd_ bz">${art.zona}</span><span class="bd_ ${MBADGE[art.mat]||'botro'}">${art.mat}</span></div>
-        <div class="mmed">${art.med}</div>
-        <button class="madd${inC?' on':''}" onclick="toggleCartItem(${art.id})">${inC?'✓ En solicitud':'+ Agregar'}</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function toggleCartItem(artId){
-  const art=CAT.find(a=>a.id===artId);
-  const idx=cart.findIndex(c=>c.artId===artId);
-  if(idx>=0){cart.splice(idx,1);toast('Quitado');}
-  else{
-    cart.push({artId:art.id,nombre:art.nombre,zona:art.zona,mat:art.mat,med:art.med,qty:1,motivo:'Faltante',obs:'',tipo:'catalogo',imgData:art.img||'',checks:{illustrator:false,imprenta:false,enviado:false},nota:'',status:'ok'});
-    toast('Agregado ✓');if(!cartOpen)toggleCpanel();
-  }
-  updateCartUI();renderMatGrid();renderSolPreview();renderCpList();
-}
 
 function toggleCpanel(){cartOpen=!cartOpen;document.getElementById('cpanel').classList.toggle('on',cartOpen);}
 
@@ -1037,7 +996,7 @@ function editarSol(folio){
   if(!sol||sol.status!=='recibida'){toast('Solo puedes editar solicitudes recibidas');return;}
   editingFolio=folio;
   cart=sol.items.map(it=>({...it,checks:{...it.checks}}));
-  updateCartUI();renderSolPreview();renderMatGrid();renderCpList();
+  updateCartUI();renderSolPreview();renderCpList();
   goPage('solicitud',document.getElementById('nt-sol'));
   toast('Solicitud cargada — edita y vuelve a enviar');
 }
