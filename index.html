@@ -306,64 +306,70 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 
   <div class="card cp" style="margin-bottom:1rem">
     <div style="font-size:13px;font-weight:600;margin-bottom:.875rem;color:var(--dark)">Agregar artículo</div>
-    <div class="g2" style="margin-bottom:.875rem">
-      <div class="fg">
-        <label>Zona</label>
-        <select id="f-zona" onchange="filtrarArts()">
-          <option value="">Selecciona zona…</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label>Artículo</label>
-        <select id="f-art" onchange="autoFill()">
-          <option value="">Primero elige zona…</option>
-        </select>
-      </div>
-    </div>
+    <div style="display:grid;grid-template-columns:1fr 220px;gap:1.25rem;align-items:start">
 
-    <!-- Preview artículo seleccionado -->
-    <div id="art-preview" style="display:none;margin-bottom:.875rem">
-      <div style="display:flex;gap:.875rem;align-items:center;background:var(--bg);border-radius:var(--rsm);padding:.75rem">
-        <div id="prev-img" style="width:72px;height:54px;border-radius:var(--rsm);overflow:hidden;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--bd)">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.25"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <!-- IZQUIERDA: campos -->
+      <div style="display:flex;flex-direction:column;gap:.875rem">
+        <div class="g2">
+          <div class="fg">
+            <label>Zona</label>
+            <select id="f-zona" onchange="filtrarArts()">
+              <option value="">Selecciona zona…</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Artículo</label>
+            <select id="f-art" onchange="autoFill()">
+              <option value="">Primero elige zona…</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Material <span style="font-size:10px;color:var(--muted);font-weight:400">(se asigna solo)</span></label>
+            <input type="text" id="f-mat" disabled placeholder="Se asigna al elegir artículo">
+          </div>
+          <div class="fg">
+            <label>Cantidad</label>
+            <input type="number" id="f-qty" value="1" min="1">
+          </div>
+          <div class="fg">
+            <label>Motivo</label>
+            <select id="f-motivo">
+              <option>Faltante</option><option>Roto/Dañado</option><option>Despintado/Viejo</option>
+              <option>Actualización de diseño</option><option>Actualización de precios</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Medidas (si difieren)</label>
+            <input type="text" id="f-medidas" placeholder="ej. 30 × 25 cm">
+          </div>
+          <div class="fg full">
+            <label>Observaciones</label>
+            <textarea id="f-obs" placeholder="Estado del material, detalles del daño…"></textarea>
+          </div>
         </div>
         <div>
-          <div style="font-size:13px;font-weight:500" id="prev-name">—</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:2px" id="prev-info">—</div>
+          <button class="btn bp" onclick="addItem()" style="width:100%;justify-content:center;padding:12px;font-size:14px">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Agregar artículo
+          </button>
         </div>
       </div>
-    </div>
 
-    <div class="g2" style="margin-bottom:.875rem">
-      <div class="fg">
-        <label>Material <span style="font-size:10px;color:var(--muted);font-weight:400">(se asigna solo)</span></label>
-        <input type="text" id="f-mat" disabled placeholder="Se asigna al elegir artículo">
+      <!-- DERECHA: imagen -->
+      <div id="art-preview" style="display:none;position:sticky;top:68px">
+        <div style="border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);background:var(--bg);aspect-ratio:1;display:flex;align-items:center;justify-content:center" id="prev-img-wrap">
+          <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div style="margin-top:.625rem;padding:0 2px">
+          <div style="font-size:12.5px;font-weight:600;color:var(--dark);line-height:1.35" id="prev-name">—</div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:3px" id="prev-info">—</div>
+        </div>
       </div>
-      <div class="fg">
-        <label>Cantidad</label>
-        <input type="number" id="f-qty" value="1" min="1">
+      <div id="art-preview-empty" style="background:var(--bg);border-radius:var(--r);border:1px dashed var(--bd);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--muted)">
+        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span style="font-size:12px;text-align:center;padding:0 1rem">Selecciona un artículo para ver su imagen</span>
       </div>
-      <div class="fg">
-        <label>Motivo</label>
-        <select id="f-motivo">
-          <option>Faltante</option><option>Roto/Dañado</option><option>Despintado/Viejo</option>
-          <option>Actualización de diseño</option><option>Actualización de precios</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label>Medidas (si difieren)</label>
-        <input type="text" id="f-medidas" placeholder="ej. 30 × 25 cm">
-      </div>
-      <div class="fg full">
-        <label>Observaciones</label>
-        <textarea id="f-obs" placeholder="Estado del material, detalles del daño, si necesitas otro material específico…"></textarea>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:flex-end">
-      <button class="btn bp" onclick="addItem()">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Agregar artículo
-      </button>
+
     </div>
   </div>
 
@@ -581,7 +587,7 @@ const CAT=[
   {id:53,zona:'Zona de juego',nombre:'Únicamente salida',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Salida.jpg'},
 ];
 const MBADGE={Sintra:'bsintra',Vinil:'bvinil','Acrílico':'bacrilico',Coroplast:'bcoroplast',Estireno:'bestireno',MDF:'bmdf',Parche:'bparche',Otro:'botro'};
-const PASS='diseno2024'; // ← cambia aquí la contraseña
+const PASS='diseno2024';
 
 // ══════════ STATE ══════════
 let cart=[];
@@ -729,16 +735,26 @@ function autoFill(){
   const id=parseInt(document.getElementById('f-art').value);
   const art=CAT.find(a=>a.id===id);
   const prev=document.getElementById('art-preview');
-  if(!art){prev.style.display='none';document.getElementById('f-mat').value='';return;}
+  const empty=document.getElementById('art-preview-empty');
+  if(!art){
+    prev.style.display='none';
+    if(empty) empty.style.display='flex';
+    document.getElementById('f-mat').value='';
+    return;
+  }
   document.getElementById('f-mat').value=art.mat;
   if(art.med&&art.med!=='A medida') document.getElementById('f-medidas').value=art.med;
-  // preview
-  const imgEl=document.getElementById('prev-img');
-  if(art.img){imgEl.innerHTML=`<img src="${art.img}" alt="" style="width:100%;height:100%;object-fit:cover">`;}
-  else{imgEl.innerHTML=`<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;}
+  // imagen grande derecha
+  const wrap=document.getElementById('prev-img-wrap');
+  if(art.img){
+    wrap.innerHTML=`<img src="${art.img}" alt="" style="width:100%;height:100%;object-fit:cover">`;
+  } else {
+    wrap.innerHTML=`<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+  }
   document.getElementById('prev-name').textContent=art.nombre;
   document.getElementById('prev-info').textContent=`${art.zona} · ${art.mat} · ${art.med}`;
   prev.style.display='block';
+  if(empty) empty.style.display='none';
 }
 
 function addItem(){
