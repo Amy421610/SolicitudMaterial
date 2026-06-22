@@ -554,7 +554,7 @@ const PASS='diseno2024'; // ← cambia aquí la contraseña
 // ══════════ STATE ══════════
 let cart=[];
 let solicitudes=[];
-let folioCnt=1000;
+let folioCnt=0;
 let cartOpen=false;
 let isDesigner=false;
 let editingFolio=null;
@@ -570,11 +570,11 @@ let panelMatFilter={};
 // Cuando tengas el Apps Script desplegado, pega aquí
 // la URL del Web App (termina en /exec)
 // ══════════════════════════════════════════════════
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycby9Oqv4D4ReE9Opw6l144KqEj6XWrgfk-ZLCSpW-qNzFSYQpK5IbkXhdTZq20EaJuU_/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz0JIkIhTGKBqoudkVPm7oMtoo3g-eCwrDrezOdQNdCU5EzJJnful3llyOAuWFU04RW/exec';
 
 // Guarda en localStorage siempre, y sincroniza a Sheets si hay URL
 function save(sol){
-  try{localStorage.setItem('oink3',JSON.stringify({solicitudes,folioCnt}));}catch(e){}
+  try{localStorage.setItem('oink4',JSON.stringify({solicitudes,folioCnt}));}catch(e){}
   if(!SHEETS_URL||!sol) return;
   // Sincronizar al Sheet en segundo plano
   const action = sol._esEdicion ? 'actualizar' : 'guardar';
@@ -586,7 +586,7 @@ function save(sol){
 // Carga desde Sheets si hay URL, si no desde localStorage
 async function load(){
   try{
-    const d=localStorage.getItem('oink3');
+    const d=localStorage.getItem('oink4');
     if(d){const p=JSON.parse(d);solicitudes=p.solicitudes||[];folioCnt=p.folioCnt||1000;
     const cut=Date.now()-6*30*24*60*60*1000;
     solicitudes=solicitudes.filter(s=>new Date(s.fechaCreacion).getTime()>cut);}
@@ -601,14 +601,14 @@ async function load(){
       // Merge: Sheets manda el estado más reciente
       solicitudes=data.solicitudes;
       if(solicitudes.length) folioCnt=Math.max(folioCnt,...solicitudes.map(s=>parseInt(s.folio.replace('OINK-',''))||0));
-      localStorage.setItem('oink3',JSON.stringify({solicitudes,folioCnt}));
+      localStorage.setItem('oink4',JSON.stringify({solicitudes,folioCnt}));
     }
   }catch(e){} // si falla Sheets, ya tenemos localStorage
 }
 
 function load(){
   try{
-    const d=localStorage.getItem('oink3');
+    const d=localStorage.getItem('oink4');
     if(d){const p=JSON.parse(d);solicitudes=p.solicitudes||[];folioCnt=p.folioCnt||1000;
     const cut=Date.now()-6*30*24*60*60*1000;
     solicitudes=solicitudes.filter(s=>new Date(s.fechaCreacion).getTime()>cut);}
@@ -802,7 +802,7 @@ function enviarSolicitud(){
     }
     editingFolio=null;
   } else {
-    const folio='OINK-'+(++folioCnt);
+    const folio='OINK-'+String(++folioCnt).padStart(4,'0');
     const newSol={folio,fechaCreacion:now,fechaEnvio:now,fechaMod:now,fechaModParque:now,obs,items:cart.map(c=>({...c,checks:{...c.checks},status:'ok',nota:''})),status:'recibida',notaGlobal:''};
     solicitudes.push(newSol);
     save(newSol);
