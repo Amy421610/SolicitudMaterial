@@ -30,7 +30,7 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 .lock-btn:hover{background:var(--bg)}
 
 /* PAGES */
-.page{display:none;padding:1.5rem;max-width:980px;margin:0 auto;width:100%}
+.page{display:none;padding:1.5rem;max-width:1100px;margin:0 auto;width:100%}
 .page.on{display:block}
 .ph{margin-bottom:1.25rem}
 .ph h1{font-size:20px;font-weight:600;letter-spacing:-.3px}
@@ -357,7 +357,7 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 
       <!-- DERECHA: imagen -->
       <div id="art-preview" style="display:none;position:sticky;top:68px">
-        <div style="border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);background:var(--bg);aspect-ratio:1;display:flex;align-items:center;justify-content:center" id="prev-img-wrap">
+        <div style="border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);background:var(--bg);height:260px;display:flex;align-items:center;justify-content:center" id="prev-img-wrap">
           <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </div>
         <div style="margin-top:.625rem;padding:0 2px">
@@ -365,7 +365,7 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
           <div style="font-size:11.5px;color:var(--muted);margin-top:3px" id="prev-info">—</div>
         </div>
       </div>
-      <div id="art-preview-empty" style="background:var(--bg);border-radius:var(--r);border:1px dashed var(--bd);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--muted)">
+      <div id="art-preview-empty" style="background:var(--bg);border-radius:var(--r);border:1px dashed var(--bd);height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--muted)">
         <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         <span style="font-size:12px;text-align:center;padding:0 1rem">Selecciona un artículo para ver su imagen</span>
       </div>
@@ -546,13 +546,13 @@ const CAT=[
   {id:18,zona:'Baños',nombre:'Secador de manitas',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Secador_manos.jpg'},
   {id:19,zona:'Baños',nombre:'Lávate las manos correctamente',mat:'Sintra',med:'21 × 27 cm',img:BASE+'Lavado_manos.jpg'},
   {id:20,zona:'Baños',nombre:'Cambiador para bebés',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Cambiador_bebes.jpg'},
-  {id:21,zona:'Baños',nombre:'Caja baños izquierdo',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_baño_izq.jpg'},
-  {id:22,zona:'Baños',nombre:'Caja baños frente',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_baño_frente.jpg'},
-  {id:23,zona:'Baños',nombre:'Caja baños derecho',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_baño_der.jpg'},
+  {id:21,zona:'Baños',nombre:'Caja baños izquierdo',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_bano_izq.jpg'},
+  {id:22,zona:'Baños',nombre:'Caja baños frente',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_bano_frente.jpg'},
+  {id:23,zona:'Baños',nombre:'Caja baños derecho',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_bano_der.jpg'},
   {id:24,zona:'Baños',nombre:'Caja baños arriba',mat:'Vinil',med:'25 × 22 cm',img:BASE+'Caja_baño_arriba.jpg'},
   {id:25,zona:'Baños',nombre:'Qué guapa te ves Oink',mat:'Vinil',med:'90 × 25 cm',img:BASE+'Espejo_mujeres.jpg'},
   {id:26,zona:'Baños',nombre:'Oink te ves muy cool',mat:'Vinil',med:'90 × 25 cm',img:BASE+'Espejo_hombres.jpg'},
-  {id:27,zona:'Baños',nombre:'Publicidad fiestas baños',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Fiestas_baños.jpg'},
+  {id:27,zona:'Baños',nombre:'Publicidad fiestas baños',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Fiestas_banos.jpg'},
   {id:28,zona:'Baños',nombre:'Códigos de colores limpieza',mat:'Sintra',med:'21 × 27 cm',img:BASE+'Codigo_colores_limpieza.jpg'},
   // Comedero
   {id:29,zona:'Comedero',nombre:'Uso obligatorio de cofia para cocina',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Cofia.jpg'},
@@ -580,7 +580,7 @@ const CAT=[
   {id:47,zona:'Arcade',nombre:'Juega por $10',mat:'Vinil',med:'13 × 13 cm',img:BASE+'1_Moneda.jpg'},
   {id:48,zona:'Arcade',nombre:'Inserta 2 monedas de $10',mat:'Vinil',med:'13 × 13 cm',img:BASE+'2_Monedas.jpg'},
   // Zona de juego
-  {id:49,zona:'Zona de juego',nombre:'Altura máxima',mat:'Sintra',med:'21 × 21 cm',img:BASE+'altura_máxima.jpg'},
+  {id:49,zona:'Zona de juego',nombre:'Altura máxima',mat:'Sintra',med:'21 × 21 cm',img:BASE+'altura_maxima.jpg'},
   {id:50,zona:'Zona de juego',nombre:'Cuidado pertenencias',mat:'Vinil',med:'15 × 7 cm',img:BASE+'Cuidado_pertenencias.jpg'},
   {id:51,zona:'Zona de juego',nombre:'Zapatera',mat:'Vinil',med:'9 × 17 cm',img:BASE+'Zapatera.jpg'},
   {id:52,zona:'Zona de juego',nombre:'Únicamente entrada',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Entrada.jpg'},
@@ -747,7 +747,7 @@ function autoFill(){
   // imagen grande derecha
   const wrap=document.getElementById('prev-img-wrap');
   if(art.img){
-    wrap.innerHTML=`<img src="${art.img}" alt="" style="width:100%;height:100%;object-fit:cover">`;
+    wrap.innerHTML=`<img src="${art.img}" alt="" style="width:100%;height:100%;object-fit:contain;padding:8px">`;
   } else {
     wrap.innerHTML=`<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
   }
