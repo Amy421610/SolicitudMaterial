@@ -311,7 +311,6 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
         <label>Zona</label>
         <select id="f-zona" onchange="filtrarArts()">
           <option value="">Selecciona zona…</option>
-        </select>
       </div>
       <div class="fg">
         <label>Artículo</label>
@@ -515,38 +514,70 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
 
 <script>
 // ══════════ DATA ══════════
-const ZONAS=['Taquilla','Baños','Comedero','Oinkstore','Estancia','Candy Oink','Fiestas','Arcade','Zona de juego'];
+const ZONAS=['Taquilla','Baños','Comedero','Estancia','Candy Oink','Fiestas','Arcade','Zona de juego'];
+const BASE='https://amy421610.github.io/SolicitudMaterial/imagenes/';
 const CAT=[
-  {id:1,zona:'Taquilla',nombre:'No somos pet friendly',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:2,zona:'Taquilla',nombre:'Por higiene y seguridad, no somos petfriendly',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:3,zona:'Taquilla',nombre:'Si no te entrego tu ticket notifica al gerente',mat:'Sintra',med:'15 × 8 cm',img:''},
-  {id:4,zona:'Taquilla',nombre:'El tiempo ilimitado es durante su estancia',mat:'Sintra',med:'30 × 25 cm',img:''},
-  {id:5,zona:'Taquilla',nombre:'En este establecimiento no discriminamos',mat:'Sintra',med:'30 × 25 cm',img:''},
-  {id:6,zona:'Taquilla',nombre:'Prohibido ingresar con alimentos y bebidas',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:7,zona:'Taquilla',nombre:'100% libre de humo',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:8,zona:'Taquilla',nombre:'No nos hacemos responsables por objetos perdidos',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:9,zona:'Taquilla',nombre:'Reglamento general del parque',mat:'Sintra',med:'60 × 90 cm',img:''},
-  {id:10,zona:'Taquilla',nombre:'Longímetro (si mides menos de 85 cm...)',mat:'MDF',med:'A medida',img:''},
-  {id:11,zona:'Baños',nombre:'Ayúdanos a mantener el baño limpio',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:12,zona:'Baños',nombre:'Deposita el papel en el bote de basura',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:13,zona:'Baños',nombre:'Área de cámaras / aviso de vigilancia',mat:'Vinil',med:'15 × 10 cm',img:''},
-  {id:14,zona:'Comedero',nombre:'Menú de alimentos',mat:'Sintra',med:'60 × 90 cm',img:''},
-  {id:15,zona:'Comedero',nombre:'Prohibido alimentos externos',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:16,zona:'Comedero',nombre:'Precio por platillo / producto',mat:'Vinil',med:'A medida',img:''},
-  {id:17,zona:'Oinkstore',nombre:'Precios productos tienda',mat:'Sintra',med:'30 × 20 cm',img:''},
-  {id:18,zona:'Oinkstore',nombre:'Sin cambios ni devoluciones',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:19,zona:'Estancia',nombre:'Reglamento de estancia',mat:'Sintra',med:'60 × 90 cm',img:''},
-  {id:20,zona:'Estancia',nombre:'Capacidad máxima del área',mat:'Sintra',med:'30 × 20 cm',img:''},
-  {id:21,zona:'Candy Oink',nombre:'Precios dulcería',mat:'Sintra',med:'30 × 20 cm',img:''},
-  {id:22,zona:'Candy Oink',nombre:'Sin cambios ni devoluciones',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:23,zona:'Fiestas',nombre:'Reglamento salón de fiestas',mat:'Sintra',med:'60 × 90 cm',img:''},
-  {id:24,zona:'Fiestas',nombre:'Horario de uso del salón',mat:'Sintra',med:'30 × 20 cm',img:''},
-  {id:25,zona:'Arcade',nombre:'Instrucciones de uso de máquinas',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:26,zona:'Arcade',nombre:'Precio por token / crédito',mat:'Sintra',med:'15 × 10 cm',img:''},
-  {id:27,zona:'Zona de juego',nombre:'Reglamento zona de juegos',mat:'Sintra',med:'60 × 90 cm',img:''},
-  {id:28,zona:'Zona de juego',nombre:'Estatura mínima requerida',mat:'Sintra',med:'A medida',img:''},
-  {id:29,zona:'Zona de juego',nombre:'Prohibido alimentos en la zona',mat:'Sintra',med:'21 × 16 cm',img:''},
-  {id:30,zona:'Zona de juego',nombre:'Capacidad máxima permitida',mat:'Sintra',med:'30 × 20 cm',img:''},
+  // Taquilla
+  {id:1, zona:'Taquilla',nombre:'No somos pet friendly',mat:'Sintra',med:'21 × 13 cm',img:BASE+'No_petfriendly'},
+  {id:2, zona:'Taquilla',nombre:'Si no te entrego tu ticket',mat:'Sintra',med:'15 × 8 cm',img:BASE+'Ticket'},
+  {id:3, zona:'Taquilla',nombre:'El tiempo ilimitado es durante su estancia',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Tiempo_libre'},
+  {id:4, zona:'Taquilla',nombre:'En este establecimiento no discriminamos',mat:'Sintra',med:'21 × 13 cm',img:BASE+'No_discriminacion'},
+  {id:5, zona:'Taquilla',nombre:'Prohibido ingresar con alimentos y bebidas',mat:'Sintra',med:'21 × 13 cm',img:BASE+'No_alimentos_bebidas'},
+  {id:6, zona:'Taquilla',nombre:'No nos hacemos responsables por objetos perdidos',mat:'Sintra',med:'21 × 13 cm',img:BASE+'No_nos_hacemos_responsables'},
+  {id:7, zona:'Taquilla',nombre:'Reglamento general del parque',mat:'Sintra',med:'60 × 90 cm',img:BASE+'Reglamento_general'},
+  {id:8, zona:'Taquilla',nombre:'Huellas',mat:'Vinil',med:'90 × 60 cm',img:BASE+'Huellas'},
+  {id:9, zona:'Taquilla',nombre:'Compra en línea piso',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Compra_enlinea'},
+  {id:10,zona:'Taquilla',nombre:'Manteleta pases',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Manteleta_pases'},
+  {id:11,zona:'Taquilla',nombre:'Únicamente entrada taquillas',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Entrada_taquillas'},
+  {id:12,zona:'Taquilla',nombre:'Únicamente salida taquillas',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Salida_taquillas'},
+  // Baños
+  {id:13,zona:'Baños',nombre:'Ayúdanos a mantener el baño limpio',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Baño_limpio'},
+  {id:14,zona:'Baños',nombre:'Baño familiar',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Baño_familiar'},
+  {id:15,zona:'Baños',nombre:'Baños hombres',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Baños_hombres'},
+  {id:16,zona:'Baños',nombre:'Baños mujeres',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Baños_mujeres'},
+  {id:17,zona:'Baños',nombre:'Recuerda lavarte las manos',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Lavarte_manos'},
+  {id:18,zona:'Baños',nombre:'Secador de manitas',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Secador_manos'},
+  {id:19,zona:'Baños',nombre:'Lávate las manos correctamente',mat:'Sintra',med:'21 × 27 cm',img:BASE+'Lavado_manos'},
+  {id:20,zona:'Baños',nombre:'Cambiador para bebés',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Cambiador_bebes'},
+  {id:21,zona:'Baños',nombre:'Caja baños izquierdo',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_baño_izq'},
+  {id:22,zona:'Baños',nombre:'Caja baños frente',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_baño_frente'},
+  {id:23,zona:'Baños',nombre:'Caja baños derecho',mat:'Vinil',med:'26 × 35 cm',img:BASE+'Caja_baño_der'},
+  {id:24,zona:'Baños',nombre:'Caja baños arriba',mat:'Vinil',med:'25 × 22 cm',img:BASE+'Caja_baño_arriba'},
+  {id:25,zona:'Baños',nombre:'Qué guapa te ves Oink',mat:'Vinil',med:'90 × 25 cm',img:BASE+'Espejo_mujeres'},
+  {id:26,zona:'Baños',nombre:'Oink te ves muy cool',mat:'Vinil',med:'90 × 25 cm',img:BASE+'Espejo_hombres'},
+  {id:27,zona:'Baños',nombre:'Publicidad fiestas baños',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Fiestas_baños'},
+  {id:28,zona:'Baños',nombre:'Códigos de colores limpieza',mat:'Sintra',med:'21 × 27 cm',img:BASE+'Codigo_colores_limpieza'},
+  // Comedero
+  {id:29,zona:'Comedero',nombre:'Uso obligatorio de cofia para cocina',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Cofia'},
+  {id:30,zona:'Comedero',nombre:'Recibe tus alimentos aquí',mat:'Sintra',med:'60 × 25 cm',img:BASE+'Recibe_tus_alimentos_aquí'},
+  {id:31,zona:'Comedero',nombre:'Solo personal autorizado',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Solo_personal_autorizado'},
+  {id:32,zona:'Comedero',nombre:'Precaución superficie caliente',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Superficie_caliente'},
+  {id:33,zona:'Comedero',nombre:'Mesa menú',mat:'Vinil',med:'46 × 76 cm',img:BASE+'Mesa_menu'},
+  {id:34,zona:'Comedero',nombre:'Chamoyada',mat:'Vinil',med:'15 × 35 cm',img:BASE+'Chamoyada'},
+  {id:35,zona:'Comedero',nombre:'Sabores paletoinks',mat:'Vinil',med:'21 × 28 cm',img:BASE+'Sabores_paletoinks'},
+  {id:36,zona:'Comedero',nombre:'Manteleta comedero',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Manteleta_comedero'},
+  // Estancia
+  {id:37,zona:'Estancia',nombre:'¡Oinker tira tu basura aquí!',mat:'Vinil',med:'60 × 25 cm',img:BASE+'Basura'},
+  {id:38,zona:'Estancia',nombre:'Tómate un break',mat:'Sintra',med:'21 × 13 cm',img:BASE+'Sillas'},
+  {id:39,zona:'Estancia',nombre:'Centro de canje',mat:'Sintra',med:'35 × 25 cm',img:BASE+'Centro_canje'},
+  // Candy Oink
+  {id:40,zona:'Candy Oink',nombre:'Medidor dulces',mat:'Vinil',med:'18 × 2 cm',img:BASE+'Medidor_dulces'},
+  {id:41,zona:'Candy Oink',nombre:'Refri paletoinks izquierdo',mat:'Vinil',med:'62 × 17 cm',img:BASE+'Refri_paletoinks_izq'},
+  {id:42,zona:'Candy Oink',nombre:'Refri paletoinks derecho',mat:'Vinil',med:'60 × 15 cm',img:BASE+'Refri_paletoinks_der'},
+  // Fiestas
+  {id:43,zona:'Fiestas',nombre:'Marco fotos',mat:'Sintra',med:'1.2 × 1.9 m',img:BASE+'Marco_fotos_fiestas'},
+  {id:44,zona:'Fiestas',nombre:'Publicidad fiestas horizontal',mat:'Sintra',med:'30 × 10 cm',img:BASE+'Fiestas_hor'},
+  // Arcade
+  {id:45,zona:'Arcade',nombre:'Cápsulas',mat:'Vinil',med:'9 × 7 cm',img:BASE+'Capsulas'},
+  {id:46,zona:'Arcade',nombre:'¿Necesitas monedas?',mat:'Vinil',med:'13 × 13 cm',img:BASE+'Necesitas_monedas'},
+  {id:47,zona:'Arcade',nombre:'Juega por $10',mat:'Vinil',med:'13 × 13 cm',img:BASE+'1_Moneda'},
+  {id:48,zona:'Arcade',nombre:'Inserta 2 monedas de $10',mat:'Vinil',med:'13 × 13 cm',img:BASE+'2_Monedas'},
+  // Zona de juego
+  {id:49,zona:'Zona de juego',nombre:'Altura máxima',mat:'Sintra',med:'21 × 21 cm',img:BASE+'altura_máxima'},
+  {id:50,zona:'Zona de juego',nombre:'Cuidado pertenencias',mat:'Vinil',med:'15 × 7 cm',img:BASE+'Cuidado_pertenencias'},
+  {id:51,zona:'Zona de juego',nombre:'Zapatera',mat:'Vinil',med:'9 × 17 cm',img:BASE+'Zapatera'},
+  {id:52,zona:'Zona de juego',nombre:'Únicamente entrada',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Entrada'},
+  {id:53,zona:'Zona de juego',nombre:'Únicamente salida',mat:'Vinil',med:'60 × 30 cm',img:BASE+'Salida'},
 ];
 const MBADGE={Sintra:'bsintra',Vinil:'bvinil','Acrílico':'bacrilico',Coroplast:'bcoroplast',Estireno:'bestireno',MDF:'bmdf',Parche:'bparche',Otro:'botro'};
 const PASS='diseno2024'; // ← cambia aquí la contraseña
