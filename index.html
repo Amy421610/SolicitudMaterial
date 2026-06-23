@@ -644,15 +644,6 @@ async function load(){
   }catch(e){} // si falla Sheets, ya tenemos localStorage
 }
 
-function load(){
-  try{
-    const d=localStorage.getItem('oink4');
-    if(d){const p=JSON.parse(d);solicitudes=p.solicitudes||[];folioCnt=p.folioCnt||1000;
-    const cut=Date.now()-6*30*24*60*60*1000;
-    solicitudes=solicitudes.filter(s=>new Date(s.fechaCreacion).getTime()>cut);}
-  }catch(e){}
-}
-
 // ══════════ NAV ══════════
 function goPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
