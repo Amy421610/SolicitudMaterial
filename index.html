@@ -633,11 +633,10 @@ async function load(){
 
   if(!SHEETS_URL) return; // sin URL, solo localStorage
 
-  try{
+ try{
     const res=await fetch(SHEETS_URL);
     const data=await res.json();
-    if(data.ok&&data.solicitudes&&data.solicitudes.length){
-      // Merge: Sheets manda el estado más reciente
+    if(data.ok&&data.solicitudes){
       solicitudes=data.solicitudes;
       if(solicitudes.length) folioCnt=Math.max(folioCnt,...solicitudes.map(s=>parseInt(s.folio.replace('OINK-',''))||0));
       localStorage.setItem('oink4',JSON.stringify({solicitudes,folioCnt}));
@@ -660,7 +659,7 @@ function goPage(id,btn){
   document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
   document.getElementById('pg-'+id).classList.add('on');
   if(btn) btn.classList.add('on');
-  if(id==='panel'){activeEst='';activeMes='';renderPanel();}
+  if(id==='panel'){activeEst='';activeMes='';load().then(()=>renderPanel());}
   if(id==='hoja') fillHojaSel();
   if(id==='misol') renderMiSol();
 }
