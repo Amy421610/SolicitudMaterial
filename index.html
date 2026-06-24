@@ -282,7 +282,7 @@ nav{background:white;border-bottom:1px solid var(--bd);padding:0 1.5rem;display:
     <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     Panel
   </button>
-  <button class="ntab" id="nt-hoja" style="display:none">
+  <button class="ntab" id="nt-hoja">
     <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M8 10h8M8 14h6"/></svg>
     Hoja de entrega
   </button>
@@ -671,7 +671,6 @@ function tryLogin(){
     isDesigner=true;
     document.getElementById('login-overlay').style.display='none';
     document.getElementById('nt-panel').style.display='';
-    document.getElementById('nt-hoja').style.display='';
     document.getElementById('lock-label').textContent='Cerrar sesión';
     document.getElementById('lock-btn').style.background='var(--olight)';
     document.getElementById('lock-btn').style.color='var(--o)';
@@ -690,7 +689,6 @@ function toggleDesigner(){
   if(isDesigner){
     isDesigner=false;
     document.getElementById('nt-panel').style.display='none';
-    document.getElementById('nt-hoja').style.display='none';
     document.getElementById('lock-label').textContent='Diseñadora';
     document.getElementById('lock-btn').style.cssText='';
     goPage('solicitud',document.getElementById('nt-sol'));
@@ -1250,7 +1248,7 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
   document.getElementById('nt-sol').addEventListener('click',function(){goPage('solicitud',this);});
   document.getElementById('nt-misol').addEventListener('click',function(){goPage('misol',this);});
   document.getElementById('nt-panel').addEventListener('click',function(){requireLogin('panel',this);});
-  document.getElementById('nt-hoja').addEventListener('click',function(){requireLogin('hoja',this);});
+  document.getElementById('nt-hoja').addEventListener('click',function(){goPage('hoja',this);});
   document.getElementById('lock-btn').addEventListener('click',toggleDesigner);
   document.getElementById('fab-btn').addEventListener('click', toggleCpanel);
   document.getElementById('cancel-edit-btn').addEventListener('click',clearCart);
